@@ -8,12 +8,12 @@ var router = express.Router();
 // });
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Delivery App' });
 });
 
 router.all('/secret', function (req, res, next) {
   console.log('Accessing the secret section ...')
-  res.render('index', { title: 'Secret!' });
+  res.render('index', { title: 'Not so secret!' });
   // res.redirect('/'); // redirects back to '/' route defined above
 })
 
