@@ -1,0 +1,15 @@
+<div class="login-container">
+    {{#if user}}
+        <p>You are already logged in as {{user.email}}</p>
+        <p>please logout before trying to login as someone else.</p>
+        <a href="/users/logout">logout</a>
+    {{/if}}
+    <form class="login-form" method="POST" action="/users/login">
+        <fieldset>
+            <legend>Login</legend>
+            <input type="text" placeholder="email" name="email">
+            <input type="password" placeholder="password" name="password">
+            <input type="submit" value="login">
+        </fieldset>
+    </form>
+</div>
