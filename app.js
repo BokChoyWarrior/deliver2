@@ -8,10 +8,10 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport'); //passport is our authentication middleware, we can configure this to allow login via google, facebook, etc... for now we'll just be using our own local authentication strategy.
 require('./strategies/users')(passport); //if you want to know how our local strategy works check the ./strategies/users.js file, basic stuff really.
+var handlebars = require('hbs');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var birdsRouter = require('./routes/birds');
 var itemsRouter = require('./routes/items');
 var shopsRouter = require('./routes/shops');
 
@@ -47,9 +47,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/birds', birdsRouter);
 app.use('/items', itemsRouter);
 app.use('/shops', shopsRouter);
 
+//handlebars stuff
+handlebars.registerPartials('views/partials');
+
+// Here we have defined two functions for use inside our .hbs files.
+// See https://github.com/pillarjs/hbs/tree/master/examples/extend for basic example
+var blocks = {};
+
+handlebars.registerHelper('extend', function(name, context) {
+    var block = blocks[name];
+    if (!block) {
+        block = blocks[name] = [];
+    }
+
+    block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
+});
+
+handlebars.registerHelper('block', function(name) {
+    var val = (blocks[name] || []).join('\n');
+
+    // clear the block
+    blocks[name] = [];
+    return val;
+});
 
 module.exports = app;
