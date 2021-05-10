@@ -16,7 +16,7 @@
             <hr>
             <ul>
                 {{#each shops}}
-                    <li><a href="/shops/{{this._id}}">{{this.name}}</a></br><span>ID:{{this._id}}</span></li>
+                <li><a href="/shops/{{this._id}}">{{this.name}}</a></br><span>ID:{{this._id}}</span></li>
                 {{/each}}
             </ul>
         </div>
@@ -36,7 +36,13 @@
             <hr>
             <ul>
                 {{#each items}}
-                <li><a href="/items/?id={{this._id}}">{{this.name}}</a><button class="addtobasketbutton"value="{{this._id}}">{{iteminbasket this._id}} : Add</button></li>
+                <li>
+                    <a href="/items/?id={{this._id}}">{{this.name}}</a>
+                    <button class="addtobasketbutton" value="{{this._id}}"
+                        onclick="add_or_remove_2basket('{{this._id}}', 1)">{{iteminbasket this._id}} : Add</button>
+                    <button class="addtobasketbutton" value="{{this._id}}"
+                        onclick="add_or_remove_2basket('{{this._id}}', -1)">Remove 1</button>
+                </li>
                 <p>{{convertPrice this.price}}</p>
                 {{/each}}
             </ul>
@@ -46,19 +52,17 @@
 
 <script>
 
-    $('.addtobasketbutton').click(function () {
-        console.log($(this).val());
-        var id = $(this).val();
-        $.post("/users/add2basket",{itemid: id}, function (data) {
-            if(data.success){
+    function add_or_remove_2basket(item_id, amount) {
+        console.log(item_id, amount);
+        $.post("/users/add2basket", { itemid: item_id, amount: amount }, function (data) {
+            if (data.success) {
                 //item was added to basket.
                 console.log(data);
-            }else{
-                
+            } else {
+
             }
         });
-    });
-
+    }
 </script>
 
 {{/extend}}

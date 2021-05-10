@@ -57,12 +57,20 @@ router.get('/basket', ensureAuthenticated, async (req, res, next) => {
   //we have to query for the user Using the User model. We do this because we can then populate each item inside the user.basket. with .populate('basket.item')
   //this will give us all the information about each product that we need.
   var user = await User.findOne({ _id: req.user._id }).populate('basket.item');
-  res.render('basket', { user: user });
+  console.log(user.basket);
+  var total_price = 0;
+  user.basket.forEach(item => {
+    total_price += (item.item.price * item.quantity);
+  });
+
+  res.render('basket', { user: user, total_price : total_price});
+  console.log(total_price);
 });
 
 router.post('/add2basket', ensureAuthenticated, async (req, res, next) => {
   var userid = req.user._id;
-  const { itemid } = req.body;
+  const { itemid, amount } = req.body;
+  console.log(req.body);
 
   var user = await User.findOne({ _id: userid }).catch(err => console.log(err));
   var basket = user.basket;
@@ -70,7 +78,9 @@ router.post('/add2basket', ensureAuthenticated, async (req, res, next) => {
   console.log(result);
   if (result >= 0) {
     console.log(result);
-    user.basket[result].quantity += 1;
+    // please CHECK that the value passed is correct and can be added/removed from basket!!!!!!!!!!!!!!!!
+    user.basket[result].quantity += +amount;
+
     user.save().then(data => {
       res.send({ success: true });
     }).catch(err => console.log(err));
