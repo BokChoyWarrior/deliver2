@@ -12,7 +12,6 @@ var handlebars = require('hbs');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var birdsRouter = require('./routes/birds');
 var itemsRouter = require('./routes/items');
 var shopsRouter = require('./routes/shops');
 
@@ -48,7 +47,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/birds', birdsRouter);
 app.use('/items', itemsRouter);
 app.use('/shops', shopsRouter);
 
