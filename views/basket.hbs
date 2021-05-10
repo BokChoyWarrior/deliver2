@@ -1,9 +1,11 @@
+{{#extend "body"}}
 <div class="main-container">
     <h1>Basket</h1>
     <ul>
         {{#each user.basket}}
-            <li>{{this.item.name}}[{{this.item.price}}] : {{this.quantity}}</li>
-
+            <li>{{this.item.name}}{{convertPrice this.item.price}} : {{this.quantity}}</li>
+            
         {{/each}}
     </ul>
 </div>
+{{/extend}}
