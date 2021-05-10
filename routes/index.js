@@ -25,6 +25,20 @@ handlebars.registerHelper("iteminbasket", function(itemid, options){
   }
 });
 
+handlebars.registerHelper("convertPrice", function(price){
+  var sPrice = price.toString();
+  var length = sPrice.length;
+
+  // console.log(sPrice + ":" + length);
+  if (length <= 2){
+    return "£0." + sPrice;
+  }else{
+    sPrice = [sPrice.slice(0, length - 2), ".", sPrice.slice(length - 2)].join('');
+    return "£" + sPrice;
+    // console.log(sPrice);
+  }
+});
+
 router.get('/', async function(req, res, next) {
   var shops = await Shops.find(); //let's get all the shops
   var items = await Items.find(); //and all the items

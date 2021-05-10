@@ -35,6 +35,7 @@
             <ul>
                 {{#each items}}
                 <li><a href="/items/?id={{this._id}}">{{this.name}}</a><button class="addtobasketbutton"value="{{this._id}}">{{iteminbasket this._id}} : Add</button></li>
+                <p>{{convertPrice this.price}}</p>
                 {{/each}}
             </ul>
         </div>
