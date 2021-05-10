@@ -8,6 +8,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport'); //passport is our authentication middleware, we can configure this to allow login via google, facebook, etc... for now we'll just be using our own local authentication strategy.
 require('./strategies/users')(passport); //if you want to know how our local strategy works check the ./strategies/users.js file, basic stuff really.
+var handlebars = require('hbs');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -51,5 +52,24 @@ app.use('/birds', birdsRouter);
 app.use('/items', itemsRouter);
 app.use('/shops', shopsRouter);
 
+// Handlebars stuff
+// handlebars.loadPartial = function (name) {
+//   var partial = handlebars.partials[name];
+//   if (typeof partial === "string") {
+//     partial = handlebars.compile(partial);
+//     handlebars.partials[name] = partial;
+//   }
+//   return partial;
+// };
+
+handlebars.registerPartials('views/partials');
+
+// handlebars.registerHelper("block",
+//   function (name, options) {
+//     /* Look for partial by name. */
+//     var partial
+//       = handlebars.loadPartial(name) || options.fn;
+//     return partial(this, { data : options.hash });
+//   });
 
 module.exports = app;
