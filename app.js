@@ -52,24 +52,28 @@ app.use('/birds', birdsRouter);
 app.use('/items', itemsRouter);
 app.use('/shops', shopsRouter);
 
-// Handlebars stuff
-// handlebars.loadPartial = function (name) {
-//   var partial = handlebars.partials[name];
-//   if (typeof partial === "string") {
-//     partial = handlebars.compile(partial);
-//     handlebars.partials[name] = partial;
-//   }
-//   return partial;
-// };
-
+//handlebars stuff
 handlebars.registerPartials('views/partials');
 
-// handlebars.registerHelper("block",
-//   function (name, options) {
-//     /* Look for partial by name. */
-//     var partial
-//       = handlebars.loadPartial(name) || options.fn;
-//     return partial(this, { data : options.hash });
-//   });
+// Here we have defined two functions for use inside our .hbs files.
+// See https://github.com/pillarjs/hbs/tree/master/examples/extend for basic example
+var blocks = {};
+
+handlebars.registerHelper('extend', function(name, context) {
+    var block = blocks[name];
+    if (!block) {
+        block = blocks[name] = [];
+    }
+
+    block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
+});
+
+handlebars.registerHelper('block', function(name) {
+    var val = (blocks[name] || []).join('\n');
+
+    // clear the block
+    blocks[name] = [];
+    return val;
+});
 
 module.exports = app;

@@ -1,9 +1,14 @@
-{{#if user}}
-    <p>You are logged in as {{user.email}}</p>
-    <a href="/users/logout">logout</a>
-{{else}}
-    <a href="/users/login">Login</a>
-    <a href="/users/register">register</a>
-{{/if}}
-<h1>{{title}}</h1>
-<p>Welcome to the great: {{title}}</p>
+{{#extend "navbar"}}
+    {{#if user}}
+        <p>You are logged in as {{user.email}}</p>
+        <a href="/users/logout">logout</a>
+    {{else}}
+        <a href="/users/login">Login</a>
+        <a href="/users/register">register</a>
+    {{/if}}
+{{/extend}}
+
+{{#extend "body"}}
+    <h1>{{title}}</h1>
+    <p>Welcome to the great: {{title}}</p>
+{{/extend}}
