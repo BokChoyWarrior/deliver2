@@ -1,9 +1,12 @@
 <nav>
     <h1><a href="/">Deliver2</a></h1>
     {{#if user}}
-    <h1>{{user.email}}</h1>
-    <a href="/users/logout" class="button-white">logout</a>
-    <a href="/users/basket"><span class="material-icons" style="font-size: 2rem;">shopping_cart</span></a>
+    <p>{{user.email}}</p>
+    <div class="container-row center">
+        <a href="/users/logout" class="button-white">logout</a>
+        <a href="/users/basket"><span class="material-icons" style="font-size: 2rem;">shopping_cart</span></a>
+    </div>
+    
     {{else}}
     <ul>
         <li class="button-white"><a href="/users/login" style="color: black;">Login</a></li>

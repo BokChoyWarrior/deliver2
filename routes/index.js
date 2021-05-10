@@ -18,7 +18,7 @@ handlebars.registerHelper("iteminbasket", function(itemid, options){
     if(result){
       return result.quantity;
     }else{
-      return 0;
+      return null;
     }
   }else{
     return null;

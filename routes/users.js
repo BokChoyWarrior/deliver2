@@ -57,42 +57,64 @@ router.get('/basket', ensureAuthenticated, async (req, res, next) => {
   //we have to query for the user Using the User model. We do this because we can then populate each item inside the user.basket. with .populate('basket.item')
   //this will give us all the information about each product that we need.
   var user = await User.findOne({ _id: req.user._id }).populate('basket.item');
-  console.log(user.basket);
   var total_price = 0;
   user.basket.forEach(item => {
     total_price += (item.item.price * item.quantity);
   });
 
-  res.render('basket', { user: user, total_price : total_price});
+  res.render('basket', { user: user, total_price: total_price });
   console.log(total_price);
 });
 
 router.post('/add2basket', ensureAuthenticated, async (req, res, next) => {
-  var userid = req.user._id;
-  const { itemid, amount } = req.body;
-  console.log(req.body);
-
-  var user = await User.findOne({ _id: userid }).catch(err => console.log(err));
-  var basket = user.basket;
-  var result = basket.findIndex(x => x.item == itemid);
-  console.log(result);
-  if (result >= 0) {
-    console.log(result);
-    // please CHECK that the value passed is correct and can be added/removed from basket!!!!!!!!!!!!!!!!
-    user.basket[result].quantity += +amount;
-
-    user.save().then(data => {
-      res.send({ success: true });
-    }).catch(err => console.log(err));
-  } else {
-    var item = {
-      item: itemid,
-      quantity: 1
+  try {
+    var userid = req.user._id;
+    var { itemid, amount } = req.body;
+    var error = false;
+    var response = {
+      success: true,
+      message: '',
+    };
+    // First we check that the amount to add is valid
+    amount = +amount;
+    if (!Number.isInteger(amount)) {
+      throw new TypeError('Amount to add must be an integer');
     }
-    user.basket.push(item);
-    user.save().then(data => {
-      res.send({ success: true });
-    }).catch(err => console.log(err));
+    // TODO
+    // We should also check that the shop actually has the item requested! (If the user doesn't already have in basket)
+    // ^ ^ ^ ^
+    var user = await User.findOne({ _id: userid });
+    var basket = user.basket;
+    var item_index = basket.findIndex(x => x.item == itemid);
+    console.log(user.basket[item_index]);
+    // If item is in basket
+    if (item_index != -1) {
+      console.log(user.basket[item_index]);
+      var quantity = Math.max(user.basket[item_index].quantity + amount, 0);
+      if (quantity == 0) {
+        user.basket.pull({ _id: user.basket[item_index]._id });
+      } else {
+        user.basket[item_index].quantity = quantity;
+      }
+    } else {
+      var item = {
+        item: itemid,
+        quantity: Math.max(0, amount)
+      }
+      user.basket.push(item);
+    }
+    user.save().then(function () {
+      response = {
+        success: true,
+        message: 'Item successfully updated.',
+      };
+    });
+  } catch (err) {
+    console.log(err);
+    response.success = false;
+    response.message = err.message;
+  }finally{
+    res.send(response);
   }
 });
 
