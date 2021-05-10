@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 const itemSchema = new Schema({
   shop: {
-      type: String,
-      ref: 'Shop'
+    type: String,
+    ref: 'Shop'
   },
   name: String,
   price: Number,

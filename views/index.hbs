@@ -1,9 +1,59 @@
-{{#if user}}
-    <p>You are logged in as {{user.email}}</p>
-    <a href="/users/logout">logout</a>
-{{else}}
-    <a href="/users/login">Login</a>
-    <a href="/users/register">register</a>
-{{/if}}
-<h1>{{title}}</h1>
-<p>Welcome to the great: {{title}}</p>
+<div class="main-container">
+    <h1>{{title}}</h1>
+    <p>Welcome to the great: {{title}}</p>
+    <div class="container-row">
+        <div class="list-container">
+            <h1 id="testing">Shops</h1>
+            <form method="POST" action="/shops/add">
+                <fieldset>
+                    <legend>New Shop</legend>
+                    <input type="text" placeholder="name of shop" name="name">
+                    <input type="submit" value="add">
+                </fieldset>
+            </form>
+            <hr>
+            <ul>
+                {{#each shops}}
+                    <li><a href="/shops/{{this._id}}">{{this.name}}</a></br><span>ID:{{this._id}}</span></li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="list-container">
+            <h1>Items</h1>
+            <form method="POST" action="/items/add">
+                <fieldset>
+                    <legend>New Item</legend>
+                    <input type="text" placeholder="item name" name="name">
+                    <input type="number" placeholder="price in pence please." name="price">
+                    <input type="text" placeholder="shop id" name="shopid">
+                    <textarea name="description"
+                        placeholder="Item Description... if you can be bothered to add one that is lmao"></textarea>
+                    <input type="submit" value="add">
+                </fieldset>
+            </form>
+            <hr>
+            <ul>
+                {{#each items}}
+                <li><a href="/items/?id={{this._id}}">{{this.name}}</a><button class="addtobasketbutton"value="{{this._id}}">{{iteminbasket this._id}} : Add</button></li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $('.addtobasketbutton').click(function () {
+        console.log($(this).val());
+        var id = $(this).val();
+        $.post("/users/add2basket",{itemid: id}, function (data) {
+            if(data.success){
+                //item was added to basket.
+                console.log(data);
+            }else{
+                
+            }
+        });
+    });
+
+</script>

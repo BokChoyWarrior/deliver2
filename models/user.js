@@ -9,8 +9,10 @@ const userSchema = new Schema({
   postcode: String,
   basket: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
+      item: {
+        type: String,
+        ref: 'Item'
+      },
       quantity: Number
     }
   ]

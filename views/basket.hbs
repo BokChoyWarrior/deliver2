@@ -1,0 +1,9 @@
+<div class="main-container">
+    <h1>Basket</h1>
+    <ul>
+        {{#each user.basket}}
+            <li>{{this.item.name}}[{{this.item.price}}] : {{this.quantity}}</li>
+
+        {{/each}}
+    </ul>
+</div>

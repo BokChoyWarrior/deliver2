@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{title}}</title>
+    <title>Deliver2</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
   </head>
   <body>
+    <nav>
+      <h1><a href="/">Deliver2</a></h1>
+      {{#if user}}
+        <h1>{{user.email}}</h1>
+        <a href="/users/logout" class="button-white">logout</a>
+        <a href="/users/basket"><span class="material-icons" style="font-size: 2rem;">shopping_basket</span></a>
+      {{else}}
+        <ul>
+          <li class="button-white"><a href="/users/login" style="color: black;">Login</a></li>
+          <li class="button-white"><a href="/users/register" style="color: black;">Register</a></li>
+        </ul>
+      {{/if}}
+    </nav>
     {{{body}}}
   </body>
 </html>
