@@ -1,27 +1,24 @@
-{{#extend "body"}}
-
+{% extends "layouts/base.html" %}
+{% block body %}
 <div class="main-container">
-    <h1>{{title}}</h1>
-    <p>Welcome to the great: {{title}}</p>
-    <div class="container-row">
-        <div class="items-grid">
-            {{#each items}}
-            <div class="item-card">
-                <h1>{{this.name}}</h1>
-                <p>{{convertPrice this.price}}</p>
-                <div class="item-card-controls">
-                    {{#if (iteminbasket this._id)}}
-                    <h1 onclick="add_or_remove_2basket(this, '{{this._id}}', 1)"><span class="material-icons">add</span></h1>
-                    <p id="item{{this._id}}">{{iteminbasket this._id}}</p>
-                    <h1 onclick="add_or_remove_2basket(this, '{{this._id}}', -1)" style="background-color: crimson;"><span class="material-icons">remove</span>
-                    </h1>
-                    {{else}}
-                    <h1 onclick="add_or_remove_2basket(this, '{{this._id}}', 1)"><span class="material-icons">add</span></h1>
-                    {{/if}}
-                </div>
+    <div class="shop-card" style="background-image: url('/shop-card-images/{{shop._id}}.png');">
+        <h1 class="shop-card-title">{{shop.name}}</h1>
+    </div>
+    <div class="items-grid">
+        {% for item in items %}
+        <div class="item-card">
+            <h1>{{item.name}}</h1>
+            <p>{{ convertPrice(item.price) }}</p>
+            <div class="item-card-controls">
+                {% set quantity = iteminbasket(item._id, user) %}
+                <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1)"><span class="material-icons">add</span></h1>
+                {% if quantity %}
+                <p id="item{{ item._id }}">{{ quantity }}</p>
+                <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', -1)" style="background-color: crimson;"><span class="material-icons">remove</span></h1>
+                {% endif %}
             </div>
-            {{/each}}
         </div>
+        {% endfor %}
     </div>
 </div>
 
@@ -53,5 +50,4 @@
         });
     }
 </script>
-
-{{/extend}}
+{% endblock %}

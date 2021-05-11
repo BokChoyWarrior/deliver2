@@ -1,0 +1,44 @@
+{% extends "layouts/base.html" %}
+  {% block body %}
+<div class="shop-grid">
+    {% for shop in shops %}
+    <div class="shop-card" style="background-image: url('shop-card-images/{{shop._id}}.png')">
+        <!-- <img class="shop-card-image" src="/shop-card-images/{{shop._id}}.png"> -->
+        <div class="shop-card-header">
+            <h1 class="shop-card-title">{{ shop.name }}</h1>
+            <a class="shop-card-link" href="/shops/{{shop._id}}">Order Now</a>
+        </div>
+        <p class="shop-card-description">{{ shop.description }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+
+    function add_or_remove_2basket(target, item_id, amount) {
+        console.log(target, item_id, amount);
+        $.post("/users/add2basket", { itemid: item_id, amount: amount }, function (data) {
+            console.log(data);
+            if (data.success) {
+                var quantity = Number($('#item'+ item_id).text());
+                if(quantity == 0){
+                    //we now need to add on the remove button and quantity. 
+                    //wish this was easier said then done ughhh.
+                    $(target).after('<h1 onclick="add_or_remove_2basket(this, ' + "'" + item_id + "'" + ', -1)" style="background-color: crimson;"><span class="material-icons">remove</span></h1>');
+                    $(target).after('<p id="item' + item_id + '">1</p>');
+                }
+                if(quantity == 1 && amount == -1){
+                    //user has deleted item from their basket so lets remove the option to remove it anymore and the quantity.
+                    var removeButton = $(target).after();
+                    $(removeButton).remove();
+                    $('#item' + item_id).remove();
+                }
+                quantity += amount;
+                $('#item'+ item_id).text(quantity);
+            } else {
+
+            }
+        });
+    }
+</script>
+    {% endblock %}
