@@ -11,12 +11,12 @@
                 <p>{{ item.price }}</p>
                 <div class="item-card-controls">
                     {% if iteminbasket(item._id, user)  %}
-                    <h1 onclick="add_or_remove_2basket(item, '{{ item._id }}', 1)"><span class="material-icons">add</span></h1>
+                    <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1)"><span class="material-icons">add</span></h1>
                     <p id="item{{ item._id }}">{{ iteminbasket(item._id, user) }}</p>
-                    <h1 onclick="add_or_remove_2basket(item, '{{ item._id }}', -1)" style="background-color: crimson;"><span class="material-icons">remove</span>
+                    <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', -1)" style="background-color: crimson;"><span class="material-icons">remove</span>
                     </h1>
                     {% else %}
-                    <h1 onclick="add_or_remove_2basket(item, '{{ item._id }}', 1)"><span class="material-icons">add</span></h1>
+                    <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1)"><span class="material-icons">add</span></h1>
                     {% endif %}
                 </div>
             </div>
