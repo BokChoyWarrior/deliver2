@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 var passport = require('passport'); //passport is our authentication middleware, we can configure this to allow login via google, facebook, etc... for now we'll just be using our own local authentication strategy.
 require('./strategies/users')(passport); //if you want to know how our local strategy works check the ./strategies/users.js file, basic stuff really.
 var handlebars = require('hbs');
+var nunjucks = require('nunjucks');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -36,8 +37,12 @@ mongoose.connect(process.env.DB_URL, {
 }).then(console.log('connected!')).catch(err => console.log(err));
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'hbs');
+nunjucks.configure('views', {
+  autoescape: true,
+  express: app,
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -51,27 +56,27 @@ app.use('/items', itemsRouter);
 app.use('/shops', shopsRouter);
 
 //handlebars stuff
-handlebars.registerPartials('views/partials');
+// handlebars.registerPartials('views/partials');
 
 // Here we have defined two functions for use inside our .hbs files.
 // See https://github.com/pillarjs/hbs/tree/master/examples/extend for basic example
-var blocks = {};
+// var blocks = {};
 
-handlebars.registerHelper('extend', function(name, context) {
-    var block = blocks[name];
-    if (!block) {
-        block = blocks[name] = [];
-    }
+// handlebars.registerHelper('extend', function(name, context) {
+//     var block = blocks[name];
+//     if (!block) {
+//         block = blocks[name] = [];
+//     }
 
-    block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
-});
+//     block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
+// });
 
-handlebars.registerHelper('block', function(name) {
-    var val = (blocks[name] || []).join('\n');
+// handlebars.registerHelper('block', function(name) {
+//     var val = (blocks[name] || []).join('\n');
 
-    // clear the block
-    blocks[name] = [];
-    return val;
-});
+//     // clear the block
+//     blocks[name] = [];
+//     return val;
+// });
 
 module.exports = app;
