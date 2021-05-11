@@ -1,28 +1,16 @@
 {% extends "layouts/base.html" %}
   {% block body %}
-<div class="main-container">
-    <h1>{{title}}</h1>
-    <p>Welcome to the great: {{title}}</p>
-    <div class="container-row">
-        <div class="items-grid">
-            {% for item in items %}
-            <div class="item-card">
-                <h1>{{ item.name }}</h1>
-                <p>{{ item.price }}</p>
-                <div class="item-card-controls">
-                    {% if iteminbasket(item._id, user)  %}
-                    <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1)"><span class="material-icons">add</span></h1>
-                    <p id="item{{ item._id }}">{{ iteminbasket(item._id, user) }}</p>
-                    <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', -1)" style="background-color: crimson;"><span class="material-icons">remove</span>
-                    </h1>
-                    {% else %}
-                    <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1)"><span class="material-icons">add</span></h1>
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
+<div class="shop-grid">
+    {% for shop in shops %}
+    <div class="shop-card" style="background-image: url('shop-card-images/{{shop._id}}.png')">
+        <!-- <img class="shop-card-image" src="/shop-card-images/{{shop._id}}.png"> -->
+        <div class="shop-card-header">
+            <h1 class="shop-card-title">{{ shop.name }}</h1>
+            <a class="shop-card-link" href="/shops/{{shop._id}}">Order Now</a>
         </div>
+        <p class="shop-card-description">{{ shop.description }}</p>
     </div>
+    {% endfor %}
 </div>
 
 <script>
@@ -36,7 +24,7 @@
                 if(quantity == 0){
                     //we now need to add on the remove button and quantity. 
                     //wish this was easier said then done ughhh.
-                    $(target).after('<h1 onclick="add_or_remove_2basket(item, ' + "'" + item_id + "'" + ', -1)" style="background-color: crimson;"><span class="material-icons">remove</span></h1>');
+                    $(target).after('<h1 onclick="add_or_remove_2basket(this, ' + "'" + item_id + "'" + ', -1)" style="background-color: crimson;"><span class="material-icons">remove</span></h1>');
                     $(target).after('<p id="item' + item_id + '">1</p>');
                 }
                 if(quantity == 1 && amount == -1){
@@ -53,4 +41,4 @@
         });
     }
 </script>
-  {% endblock %}
+    {% endblock %}

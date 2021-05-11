@@ -62,8 +62,8 @@ fieldset{
 .main-container{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
+  width: 50vw;
+  margin: 0 auto 0 auto;
   height: 100%;
 }
 
@@ -79,14 +79,30 @@ nav{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   height: 4rem;
   background-color: dodgerblue;
   width: 100%;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
 }
 nav h1{
   color: white;
   font-size: 3rem;
+  background-color: springgreen;
+  padding: 1rem;
+  border-radius: 10px;
+  transform: rotate(-10deg);
+  margin-left: -2rem;
+  box-shadow: 2px 2px 25px white;
+  animation-name: logo;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+nav h1:hover{
+  animation-name: spin;
+  animation-direction: 1s;
 }
 nav ul{
   display: flex;
@@ -127,8 +143,8 @@ nav ul li{
 
 .items-grid{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  width: 100%;
 }
 .item-card{
   display: flex;
@@ -160,4 +176,75 @@ nav ul li{
   cursor: pointer;
 }.item-card-controls h1:hover{
   transform: scale(0.9);
+}
+
+.shop-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-gap: 1rem;
+}
+.shop-card{
+  display: flex;
+  flex-direction: column;
+  background-size: cover;
+  background-color: black;
+  min-height: 20rem;
+  transition: 1s;
+}
+.shop-card:hover{
+  transform: scale(1.05);
+  box-shadow: 4px 4px 25px black;
+}
+.shop-card:hover .shop-card-description{
+  background-color: rgba(0, 0, 0, 0.9);
+  color: rgba(255, 255, 255, 1);
+}
+.shop-card:hover .shop-card-link{
+  display: flex;
+}
+.shop-card-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+  padding: 0.25;
+}
+.shop-card-link{
+  display: none;
+  background-color: springgreen;
+  color: black;
+  padding: 0.5rem;
+  margin: 0.25rem;
+  border-radius: 10px;
+}
+.shop-card-title{
+  font-size: 2rem;
+  color: white;
+}
+.shop-card-description{
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
+  margin: 0;
+  margin-top: auto;
+  padding: 1rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+@keyframes logo {
+  from{transform: scale(1);
+    transform: rotate(-10deg);
+  }
+  to{
+    transform: scale(1.1);
+  }
+}
+
+@keyframes spin{
+  from{transform: rotate(0deg);}
+  to{transform: rotate(360deg);}
 }

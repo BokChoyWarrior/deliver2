@@ -17,32 +17,35 @@
   </head>
 
   <body>
-    <nav>
-      <h1>
-        <a href="/">Deliver2</a>
-      </h1>
-      {% if user %}
-        <p>{{ user.email }}</p>
-        <div class="container-row center">
-          <a href="/users/logout" class="button-white">logout</a>
-          <a href="/users/basket">
-            <span class="material-icons" style="font-size: 2rem;">shopping_cart</span></a>
-        </div>
+    {% block nav %}
+    <div class="main-container">
+      <nav>
+        <h1>
+          <a href="/"><i>Deliver2</i></a>
+        </h1>
+        {% if user %}
+          <p>{{ user.email }}</p>
+          <div class="container-row center" style="margin-right: 2rem;">
+            <a href="/users/logout" class="button-white" style="margin-right: 1rem;">logout</a>
+            <a href="/users/basket">
+              <span class="material-icons" style="font-size: 2rem;">shopping_cart</span></a>
+          </div>
 
-      {% else %}
-        <ul>
-          <li class="button-white">
-            <a href="/users/login" style="color: black;">Login</a>
-          </li>
-          <li class="button-white">
-            <a href="/users/register" style="color: black;">Register</a>
-          </li>
-        </ul>
-      {% endif %}
-    </nav>
-
+        {% else %}
+          <ul>
+            <li class="button-white">
+              <a href="/users/login" style="color: black;">Login</a>
+            </li>
+            <li class="button-white">
+              <a href="/users/register" style="color: black;">Register</a>
+            </li>
+          </ul>
+        {% endif %}
+      </nav>
+    {% endblock %}
     {% block body %}{% endblock %}
     {% block footer %}{% endblock %}
+    </div>
   </body>
 
 </html>

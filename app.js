@@ -8,7 +8,6 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport'); //passport is our authentication middleware, we can configure this to allow login via google, facebook, etc... for now we'll just be using our own local authentication strategy.
 require('./strategies/users')(passport); //if you want to know how our local strategy works check the ./strategies/users.js file, basic stuff really.
-var handlebars = require('hbs');
 var nunjucks = require('nunjucks');
 
 var indexRouter = require('./routes/index');
@@ -36,9 +35,6 @@ mongoose.connect(process.env.DB_URL, {
   useCreateIndex: true
 }).then(console.log('connected!')).catch(err => console.log(err));
 
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'hbs');
 var njenv = nunjucks.configure('views', {
   autoescape: true,
   express: app,
@@ -46,20 +42,33 @@ var njenv = nunjucks.configure('views', {
 
 // proof-of-concept
 njenv.addGlobal('iteminbasket', function(item_id, user) { 
-  // console.log('myFunc', item_id, user);
-  // console.log(user);
+  //Check for item in users basket.
+  //Return Quantity of item in the basket.
   if(user){
     var result = user.basket.find( x => x.item == item_id);
     if(result){
       console.log("Found item " + item_id);
       return result.quantity;
     }else{
-      // console.log("Didnt find " + item_id);
       return false;
     }
   }else{
-    console.log("no user")
+    //user not logged in, just return null
     return false;
+  }
+});
+
+njenv.addGlobal("convertPrice", function(price){
+  var sPrice = price.toString();
+  var length = sPrice.length;
+
+  // console.log(sPrice + ":" + length);
+  if (length <= 2){
+    return "£0." + sPrice;
+  }else{
+    sPrice = [sPrice.slice(0, length - 2), ".", sPrice.slice(length - 2)].join('');
+    return "£" + sPrice;
+    // console.log(sPrice);
   }
 });
 
@@ -73,29 +82,5 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/items', itemsRouter);
 app.use('/shops', shopsRouter);
-
-//handlebars stuff
-// handlebars.registerPartials('views/partials');
-
-// Here we have defined two functions for use inside our .hbs files.
-// See https://github.com/pillarjs/hbs/tree/master/examples/extend for basic example
-// var blocks = {};
-
-// handlebars.registerHelper('extend', function(name, context) {
-//     var block = blocks[name];
-//     if (!block) {
-//         block = blocks[name] = [];
-//     }
-
-//     block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
-// });
-
-// handlebars.registerHelper('block', function(name) {
-//     var val = (blocks[name] || []).join('\n');
-
-//     // clear the block
-//     blocks[name] = [];
-//     return val;
-// });
 
 module.exports = app;
