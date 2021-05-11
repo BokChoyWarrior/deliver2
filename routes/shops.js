@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) =>{
     var items = await Items.find({shop: id});
     Shops.findOne({_id: id}).then(data => {
         console.log(data);
-        res.render('shop', {shop: data, items:items, user: req.user});
+        res.render('shop.html', {shop: data, items:items, user: req.user});
     }).catch(err => console.log(err));
 })
 

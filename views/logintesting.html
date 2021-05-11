@@ -1,10 +1,11 @@
-{{#extend "body"}}
+{% extends "layouts/base.html" %}
+{% block body %}
 <div class="login-container">
-    {{#if user}}
-        <p>You are already logged in as {{user.email}}</p>
+    {% if user %}
+        <p>You are already logged in as {{ user.email }}</p>
         <p>please logout before trying to login as someone else.</p>
         <a href="/users/logout">logout</a>
-    {{/if}}
+    {% endif %}
     <form class="login-form" method="POST" action="/users/login">
         <fieldset>
             <legend>Login</legend>
@@ -14,4 +15,4 @@
         </fieldset>
     </form>
 </div>
-{{/extend}}
+{% endblock %}

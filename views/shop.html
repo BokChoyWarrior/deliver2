@@ -1,0 +1,11 @@
+{% extends "layouts/base.html" %}
+{% block body %}
+<div class="main-container">
+    <h1>{{ shop.name }}</h1>
+    <ul>
+        {% for item in items %}
+        <li>{{ item.name }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

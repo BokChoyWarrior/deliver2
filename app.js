@@ -39,9 +39,28 @@ mongoose.connect(process.env.DB_URL, {
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'hbs');
-nunjucks.configure('views', {
+var njenv = nunjucks.configure('views', {
   autoescape: true,
   express: app,
+});
+
+// proof-of-concept
+njenv.addGlobal('iteminbasket', function(item_id, user) { 
+  // console.log('myFunc', item_id, user);
+  // console.log(user);
+  if(user){
+    var result = user.basket.find( x => x.item == item_id);
+    if(result){
+      console.log("Found item " + item_id);
+      return result.quantity;
+    }else{
+      // console.log("Didnt find " + item_id);
+      return false;
+    }
+  }else{
+    console.log("no user")
+    return false;
+  }
 });
 
 app.use(logger('dev'));
