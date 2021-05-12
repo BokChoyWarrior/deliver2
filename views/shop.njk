@@ -10,7 +10,7 @@
                     <h1>{{item.name}}</h1>
                     <p>{{ convertPrice(item.price) }}</p>
                     <div class="item-card-controls">
-                        {% set quantity = iteminbasket(item._id, user) %}
+                        {% set quantity = quantityInBasket(item._id, user) %}
                         <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1)">
                             <span class="material-icons">add</span></h1>
                         {% if quantity %}

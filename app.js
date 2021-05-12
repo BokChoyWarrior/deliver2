@@ -15,7 +15,7 @@ var usersRouter = require('./routes/users');
 var itemsRouter = require('./routes/items');
 var shopsRouter = require('./routes/shops');
 
-var birdsRouter = require('./routes/birds');
+var birdsRouter = require('./routes/birds'); // for testing!
 
 
 var app = express();
@@ -43,37 +43,11 @@ var njenv = nunjucks.configure('views', {
 });
 app.set('view engine', 'njk');
 
-// proof-of-concept - move to library
-njenv.addGlobal('iteminbasket', function (item_id, user) {
-  //Check for item in users basket.
-  //Return Quantity of item in the basket.
-  if (user) {
-    var result = user.basket.find(x => x.item == item_id);
-    if (result) {
-      console.log("Found item " + item_id);
-      return result.quantity;
-    } else {
-      return false;
-    }
-  } else {
-    //user not logged in, just return null
-    return false;
-  }
-});
-
-njenv.addGlobal("convertPrice", function (price) {
-  var sPrice = price.toString();
-  var length = sPrice.length;
-
-  // console.log(sPrice + ":" + length);
-  if (length <= 2) {
-    return "£0." + sPrice;
-  } else {
-    sPrice = [sPrice.slice(0, length - 2), ".", sPrice.slice(length - 2)].join('');
-    return "£" + sPrice;
-    // console.log(sPrice);
-  }
-});
+// Add global functions which our .njk files can execute
+var nunjucks_globals = require('./lib/nunjucks_globals').globalsToAdd;
+for (funcName in nunjucks_globals) {
+  njenv.addGlobal(funcName, nunjucks_globals[funcName]);
+};
 
 app.use(logger('dev'));
 app.use(express.json());
