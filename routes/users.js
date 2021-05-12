@@ -31,12 +31,12 @@ router.post('/register', async (req, res, next) => {
 });
 
 router.get('/login', (req, res) => {
-  res.render('logintesting.html', { user: req.user });
+  res.render('logintesting', { user: req.user });
 });
 
 router.get('/register', (req, res) => {
   console.log('got request');
-  res.render('adduser.html');
+  res.render('adduser');
 });
 
 router.post('/login', (req, res, next) => {
@@ -62,7 +62,7 @@ router.get('/basket', ensureAuthenticated, async (req, res, next) => {
     total_price += (item.item.price * item.quantity);
   });
 
-  res.render('basket.html', { user: user, total_price: total_price });
+  res.render('basket', { user: user, total_price: total_price });
   console.log(total_price);
 });
 

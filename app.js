@@ -41,8 +41,9 @@ var njenv = nunjucks.configure('views', {
   autoescape: true,
   express: app,
 });
+app.set('view engine', 'njk');
 
-// proof-of-concept
+// proof-of-concept - move to library
 njenv.addGlobal('iteminbasket', function (item_id, user) {
   //Check for item in users basket.
   //Return Quantity of item in the basket.
