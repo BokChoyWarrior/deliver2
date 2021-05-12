@@ -22,10 +22,13 @@ var app = express();
 //sessions will be stored inside the mongodb atlas under the sessions collection.
 app.use(session({
   secret: 'appleteasers', //good ol apple teasers ;P
-  store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+  store: MongoStore.create({ 
+    mongoUrl: process.env.DB_URL,
+    autoRemove: 'native',
+    ttl: 1 * 60 * 60 * 24  //this is where we set how long the session will last in seconds. (for now i've set it for 1 Day) These cookies will be destroyed automatically once they expire.
+  }),
   resave: true,
-  saveUninitialized: false, //we don't want to store sessions of users that are not logged in.
-  expires: new Date(Date.now() + 3600000) //how long the session will last for this user.
+  saveUninitialized: false //we don't want to store sessions of users that are not logged in.
 }));
 app.use(passport.initialize());
 app.use(passport.session());
