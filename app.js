@@ -37,6 +37,7 @@ mongoose.connect(process.env.DB_URL, {
   useCreateIndex: true
 }).then(console.log('connected!')).catch(err => console.log(err));
 
+// View engine/Nunjucks stuff //
 var njenv = nunjucks.configure('views', {
   autoescape: true,
   express: app,
@@ -44,7 +45,8 @@ var njenv = nunjucks.configure('views', {
 app.set('view engine', 'njk');
 
 // Add global functions which our .njk files can execute
-var nunjucks_globals = require('./lib/nunjucks_globals').globalsToAdd;
+var nunjucks_globals = require('./lib/nunjucks_globals');
+
 for (funcName in nunjucks_globals) {
   njenv.addGlobal(funcName, nunjucks_globals[funcName]);
 };
