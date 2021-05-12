@@ -20,7 +20,7 @@ var app = express();
 //sessions will be stored inside the mongodb atlas under the sessions collection.
 app.use(session({
   secret: 'appleteasers', //good ol apple teasers ;P
-  store: MongoStore.create({mongoUrl: process.env.DB_URL}),
+  store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
   resave: true,
   saveUninitialized: false, //we don't want to store sessions of users that are not logged in.
   expires: new Date(Date.now() + 3600000) //how long the session will last for this user.
@@ -41,31 +41,31 @@ var njenv = nunjucks.configure('views', {
 });
 
 // proof-of-concept
-njenv.addGlobal('iteminbasket', function(item_id, user) { 
+njenv.addGlobal('iteminbasket', function (item_id, user) {
   //Check for item in users basket.
   //Return Quantity of item in the basket.
-  if(user){
-    var result = user.basket.find( x => x.item == item_id);
-    if(result){
+  if (user) {
+    var result = user.basket.find(x => x.item == item_id);
+    if (result) {
       console.log("Found item " + item_id);
       return result.quantity;
-    }else{
+    } else {
       return false;
     }
-  }else{
+  } else {
     //user not logged in, just return null
     return false;
   }
 });
 
-njenv.addGlobal("convertPrice", function(price){
+njenv.addGlobal("convertPrice", function (price) {
   var sPrice = price.toString();
   var length = sPrice.length;
 
   // console.log(sPrice + ":" + length);
-  if (length <= 2){
+  if (length <= 2) {
     return "£0." + sPrice;
-  }else{
+  } else {
     sPrice = [sPrice.slice(0, length - 2), ".", sPrice.slice(length - 2)].join('');
     return "£" + sPrice;
     // console.log(sPrice);
