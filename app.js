@@ -15,6 +15,8 @@ var usersRouter = require('./routes/users');
 var itemsRouter = require('./routes/items');
 var shopsRouter = require('./routes/shops');
 
+var birdsRouter = require('./routes/birds');
+
 
 var app = express();
 //sessions will be stored inside the mongodb atlas under the sessions collection.
@@ -82,5 +84,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/items', itemsRouter);
 app.use('/shops', shopsRouter);
+app.use('/birds', birdsRouter);
 
 module.exports = app;
