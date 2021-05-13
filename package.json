@@ -26,9 +26,6 @@
   },
   "devDependencies": {
     "jasmine": "^3.7.0",
-    "nodemon": "^2.0.7",
-    "nunjucks": "^3.2.3",
-    "passport": "^0.4.1",
     "passport-local": "^1.0.0"
   }
 }
