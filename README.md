@@ -3,33 +3,38 @@ Test delivery webapp
 
 ### Planned Features
 ##### General
-- [ ] Login page
-- [ ] Shop selector
-- [ ] Order page
+- [x] Login page
+- [x] Shop selector
+- [x] Order page
 - [ ] Shopping basket
-
+- [ ] Main page layout decided
 ##### Tech stuff
 - [ ] The API
-
+- [ ] Contacting our own DB server
+- [ ] Unit testing (ongoing)
+- [ ] Login sessions
 
 ## Setup
 ### Prerequisites
 To set up the app, you'll need some things installed:
 
-- node.js
+- [node.js](https://nodejs.org/en/)
 - Text editor/IDE of your choice
-
+#### ⚠️⚠️⚠️⚠️
+**You will need the ".env" file from someone before the webapp can contact the mongoDB server. Please ask for it from Charlie or Harvey!**
 ### Installation
+
 1. First of all, create and navigate to a directory in which you'd like to store the project. E.g. `C:\Dev\`
 
 2. Clone the project with `git clone https://github.com/BokChoyWarrior/deliver2`. In windows you'll need to run this from git bash terminal **Make sure you clone into the directory you made in step 1!**
 
-3. Change your current directory to `xyz/seliver2/`, so if you ran the **clone** command in `C:\Dev\`, you would now want to be inside `C:\Dev\flaskr\`
+3. Change your current directory to `xyz/deliver2/`, so if you ran the **clone** command in `C:\Dev\`, you would now want to be inside `C:\Dev\flaskr\`
 
 4. Install dependencies - `npm install`
 
+5. Make sure you have the .env file inside `deliver2/`
 
-9. Run the app - `npm run dev`
+6. Run the app - `npm run dev`
 
 You should see output similar to this:
 ```
@@ -48,7 +53,7 @@ C:\Dev\Basketdrop\deliver2>npm run dev
 Visit [http://127.0.0.1:3000/](http://127.0.0.1:3000/) to see the app!
 
 
-If you have any problems with installation let me know and I can help figure them out!
+If you have any problems with installation let me, or charlie know.
 
 ### Testing
 __Not yet implemented!__

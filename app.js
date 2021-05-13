@@ -1,19 +1,37 @@
 require('dotenv').config();
-var createError = require('http-errors');
 var express = require('express');
+var session = require('express-session'); //express sessions middleware (documentation can be found at https://www.npmjs.com/package/express-session)
+var MongoStore = require('connect-mongo'); //this will allow us to use mongodb to store our sessions.
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var passport = require('passport'); //passport is our authentication middleware, we can configure this to allow login via google, facebook, etc... for now we'll just be using our own local authentication strategy.
+require('./strategies/users')(passport); //if you want to know how our local strategy works check the ./strategies/users.js file, basic stuff really.
+var nunjucks = require('nunjucks');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var birdsRouter = require('./routes/birds');
 var itemsRouter = require('./routes/items');
 var shopsRouter = require('./routes/shops');
 
+var birdsRouter = require('./routes/birds'); // for testing!
+
 
 var app = express();
+//sessions will be stored inside the mongodb atlas under the sessions collection.
+app.use(session({
+  secret: 'appleteasers', //good ol apple teasers ;P
+  store: MongoStore.create({ 
+    mongoUrl: process.env.DB_URL,
+    autoRemove: 'native',
+    ttl: 1 * 60 * 60 * 24  //this is where we set how long the session will last in seconds. (for now i've set it for 1 Day) These cookies will be destroyed automatically once they expire.
+  }),
+  resave: true,
+  saveUninitialized: false //we don't want to store sessions of users that are not logged in.
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,
@@ -22,9 +40,19 @@ mongoose.connect(process.env.DB_URL, {
   useCreateIndex: true
 }).then(console.log('connected!')).catch(err => console.log(err));
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// View engine/Nunjucks stuff //
+var njenv = nunjucks.configure('views', {
+  autoescape: true,
+  express: app,
+});
+app.set('view engine', 'njk');
+
+// Add global functions which our .njk files can execute
+var nunjucks_globals = require('./lib/nunjucks_globals');
+
+for (funcName in nunjucks_globals) {
+  njenv.addGlobal(funcName, nunjucks_globals[funcName]);
+};
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -34,9 +62,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/birds', birdsRouter);
 app.use('/items', itemsRouter);
 app.use('/shops', shopsRouter);
-
+app.use('/birds', birdsRouter);
 
 module.exports = app;

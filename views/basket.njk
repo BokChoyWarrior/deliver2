@@ -1,0 +1,13 @@
+{% extends "layouts/base.njk" %}
+{% block body %}
+<div class="main-container">
+    <h1>Basket</h1>
+    <ul>
+        {% for item in user.basket %}
+            <li>{{ item.name }}{{ item.price }} : {{ quantity }}</li>
+            
+        {% endfor %}
+        <li><h4>Total price: {{ total_price }}</h4></li>
+    </ul>
+</div>
+{% endblock %}
