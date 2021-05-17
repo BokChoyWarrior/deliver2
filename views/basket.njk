@@ -1,13 +1,71 @@
 {% extends "layouts/base.njk" %}
 {% block body %}
-<div class="main-container">
-    <h1>Basket</h1>
-    <ul>
-        {% for item in user.basket %}
-            <li>{{ item.name }}{{ item.price }} : {{ quantity }}</li>
-            
-        {% endfor %}
-        <li><h4>Total price: {{ total_price }}</h4></li>
-    </ul>
-</div>
+    <div class="main-container">
+        <h1>Basket</h1>
+        <div class="basket-summary">
+            {% for object in user.basket %}
+                {% set item = object.item %}
+                <div id="item{{ item._id }}-quantity">{{ object.quantity }}</div>
+                <div id="item{{ item._id }}-name">{{ item.name }}</div>
+                <div id="item{{ item._id }}-remove" class="item-card-controls-small">
+                    <h3 onclick="add_or_remove_2basket(this, '{{ item._id }}', -1)" style="background-color: crimson;">
+                        <span class="material-icons">remove</span></h3>
+                </div>
+                <script>
+                    var _price_{{ item._id }} = {{ item.price }};
+                    var _total_price_{{ item._id }} = {{item.price}} * {{object.quantity}};
+                </script>
+                <div id="item{{ item._id }}-totalPrice">
+                    <script>
+                        document
+                            .getElementById("item{{ item._id }}-totalPrice")
+                            .innerHTML = convertPrice({{item.price}} * {{object.quantity}});
+                    </script>
+                </div>
+                <div id="item{{ item._id }}-add" class="item-card-controls-small">
+                    <h3 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1)" style="background-color: green;">
+                        <span class="material-icons">add</span></h3>
+                </div>
+            {% endfor %}
+        </div>
+        <h4>Total price: <span id="total_basket_price">
+                <script>
+                    console.log({{basket_price}});
+                    $("#total_basket_price").text(convertPrice({{ basket_price }}));
+                </script>
+            </span>
+        </h4>
+        <script>
+            var basket_price = {{ basket_price }}
+        </script>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+
+        function add_or_remove_2basket(target, item_id, amount) {
+            $.post("/users/add2basket", {
+                itemid: item_id,
+                amount: amount
+            }, function (data) {
+                if (data.success == true) {
+                    // update quantity
+                    var quantity = Number($('#item' + item_id + '-quantity').text()) + amount;
+                    quantity = Math.max(quantity, 0);
+                    $('#item' + item_id + '-quantity').text(quantity);
+
+                    var item_price = window['_price_' + item_id];
+                    var old_price = window['_total_price_' + item_id];
+                    // update shown price for item
+                    window['_total_price_' + item_id] = quantity * item_price;
+                    $('#item' + item_id + '-totalPrice').text(convertPrice(window['_total_price_' + item_id]));
+
+                    // update shown total price for basket
+                    window['basket_price'] -= (old_price - window['_total_price_' + item_id]);
+                    $('#total_basket_price').text(convertPrice(window['basket_price']))
+                }
+            });
+        }
+    </script>
 {% endblock %}
