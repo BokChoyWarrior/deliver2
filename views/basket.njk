@@ -11,39 +11,30 @@
                     <h3 onclick="add_or_remove_2basket(this, '{{ item._id }}', -1)" style="background-color: crimson;">
                         <span class="material-icons">remove</span></h3>
                 </div>
-                <script>
-                    var _price_{{ item._id }} = {{ item.price }};
-                    var _total_price_{{ item._id }} = {{item.price}} * {{object.quantity}};
-                </script>
-                <div id="item{{ item._id }}-totalPrice">
-                    <script>
-                        document
-                            .getElementById("item{{ item._id }}-totalPrice")
-                            .innerHTML = convertPrice({{item.price}} * {{object.quantity}});
-                    </script>
-                </div>
+                <div id="item{{ item._id }}-totalPrice"></div>
                 <div id="item{{ item._id }}-add" class="item-card-controls-small">
                     <h3 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1)" style="background-color: green;">
                         <span class="material-icons">add</span></h3>
                 </div>
+                <script>
+                    var _price_{{ item._id }} = {{ item.price }};
+                    var _total_price_{{ item._id }} = {{item.price}} * {{object.quantity}};
+                    $("#item{{ item._id }}-totalPrice")
+                        .text(convertPrice({{item.price}} * {{object.quantity}}));
+                </script>
             {% endfor %}
         </div>
-        <h4>Total price: <span id="total_basket_price">
-                <script>
-                    console.log({{basket_price}});
-                    $("#total_basket_price").text(convertPrice({{ basket_price }}));
-                </script>
-            </span>
-        </h4>
-        <script>
-            var basket_price = {{ basket_price }}
-        </script>
+        <h4>Total price: <span id="total_basket_price"></span></h4>
     </div>
 {% endblock %}
 
 {% block javascript %}
     <script>
+        // initialisation
+        $("#total_basket_price").text(convertPrice({{ basket_price }}));
+        var basket_price = {{ basket_price }}
 
+        // lib
         function add_or_remove_2basket(target, item_id, amount) {
             $.post("/users/add2basket", {
                 itemid: item_id,
