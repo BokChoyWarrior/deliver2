@@ -68,13 +68,6 @@ app.use('/items', itemsRouter);
 app.use('/shops', shopsRouter);
 app.use('/birds', birdsRouter);
 
-// var fs = require('fs');
-// fs.readdir("./routes/api/", (err, files) => {
-//   files.forEach(file => {
-//     console.log(file);
-//     app.use("/api", require("./routes/api/" + file))
-//   });
-// })
 app.use('/api', apiRouter);
 
 module.exports = app;
