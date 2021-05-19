@@ -15,6 +15,8 @@ var usersRouter = require('./routes/users');
 var itemsRouter = require('./routes/items');
 var shopsRouter = require('./routes/shops');
 
+var apiRouter = require('./routes/api/');
+
 var birdsRouter = require('./routes/birds'); // for testing!
 
 
@@ -22,7 +24,7 @@ var app = express();
 //sessions will be stored inside the mongodb atlas under the sessions collection.
 app.use(session({
   secret: 'appleteasers', //good ol apple teasers ;P
-  store: MongoStore.create({ 
+  store: MongoStore.create({
     mongoUrl: process.env.DB_URL,
     autoRemove: 'native',
     ttl: 1 * 60 * 60 * 24  //this is where we set how long the session will last in seconds. (for now i've set it for 1 Day) These cookies will be destroyed automatically once they expire.
@@ -65,5 +67,14 @@ app.use('/users', usersRouter);
 app.use('/items', itemsRouter);
 app.use('/shops', shopsRouter);
 app.use('/birds', birdsRouter);
+
+// var fs = require('fs');
+// fs.readdir("./routes/api/", (err, files) => {
+//   files.forEach(file => {
+//     console.log(file);
+//     app.use("/api", require("./routes/api/" + file))
+//   });
+// })
+app.use('/api', apiRouter);
 
 module.exports = app;
