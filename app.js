@@ -51,7 +51,7 @@ app.set('view engine', 'njk');
 
 // Add global functions which our .njk files can execute
 var nunjucks_globals = require('./lib/nunjucks_globals');
-
+// Adding each global by name
 for (funcName in nunjucks_globals) {
   njenv.addGlobal(funcName, nunjucks_globals[funcName]);
 };
