@@ -25,7 +25,7 @@ router.route('/shops/:shop_id')
         if (is_valid_mongo_id(shop_id)) {
             await Shops.findById(shop_id, function (err, shop) {
                 res.json(shop)
-            }).catch(err => console.log(err));
+            });
         } else {
             res.json({"success": false, "message": "ID given was invalid"});
         }
@@ -39,7 +39,7 @@ router.route('/shops/:shop_id/items')
             // https://mongoosejs.com/docs/api.html#model_Model.find
             await Items.find({"shop" : shop_id }, "_id name price description", function (err, items) {
                 res.json(items)
-            }).catch(err => console.log(err));
+            });
         } else {
             res.json({"success": false, "message": "ID given was invalid"});
         }
