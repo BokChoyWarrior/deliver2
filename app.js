@@ -15,7 +15,7 @@ var usersRouter = require('./routes/users');
 var itemsRouter = require('./routes/items');
 var shopsRouter = require('./routes/shops');
 
-var apiRouter = require('./routes/api/');
+var apiRouter = require('./routes/api');
 
 var birdsRouter = require('./routes/birds'); // for testing!
 
