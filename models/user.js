@@ -7,6 +7,7 @@ const userSchema = new Schema({
   password: String,
   address: String,
   postcode: String,
+  type: Number, // 0 for base user, 1 for shop
   basket: [
     {
       item: {
@@ -16,13 +17,13 @@ const userSchema = new Schema({
       quantity: Number
     }
   ]
-}, {timestamps: true});
+}, { timestamps: true });
 
-userSchema.methods.verify = async function(password){
-    await bcrypt.compare(password, this.password, function(error, result){
-        console.log(result);
-        return result;
-    });
+userSchema.methods.verify = async function (password) {
+  await bcrypt.compare(password, this.password, function (error, result) {
+    console.log(result);
+    return result;
+  });
 }
 
 module.exports = mongoose.model('User', userSchema);
