@@ -32,7 +32,6 @@
                 itemid: item_id,
                 amount: amount
             }, function (data) {
-                console.log(data);
                 if (data.success) {
                     var quantity = Number($('#item' + item_id).text());
                     if (quantity == 0) {

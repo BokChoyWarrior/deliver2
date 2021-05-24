@@ -4,6 +4,6 @@ var Schema = mongoose.Schema;
 const shopSchema = new Schema({
   name: String,
   description: String
-}, {timestamps: true});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Shop', shopSchema);
