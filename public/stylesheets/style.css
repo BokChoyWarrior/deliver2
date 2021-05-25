@@ -2,7 +2,82 @@
 :root {
     --main-bg: #001B2E;
     --main-fg: #FFFCF9;
+}html{
+	background: white;
+	font-size:16px;
 }
+body{
+	font-family: 'Poppins', sans-serif;
+	background:white;
+	/* max-width:1000px; */
+	margin: 0 auto;
+	text-align: center;
+}
+header, footer{
+	background: rgb(0, 140, 255);
+	color:white;
+}
+input [type="search"]{
+	width:80% 
+}
+ul{
+    margin: 0;
+    padding:0;
+}
+li{
+    list-style: none;
+    line-height: 30px;
+}
+a{
+    text-decoration:line;
+    color:inherit;
+}
+a:hover {
+    color:grey
+}
+header li, footer li{
+    display:inline;
+}
+header h1,nav{
+    display: inline-block;
+}
+header h1{
+	width:50%
+}
+main{
+	/* width: 330px; */
+	display:inline-block;
+	padding: 10px;
+	text-align:center;
+}
+footer{
+	text-align:center;
+}
+.stores{
+		/* border: 1px lightgrey solid; */
+		background: white;
+		height:275px;
+    width:275px;
+    margin:0px;
+    padding: 5px;
+   	display: inline-block; /* font-size: 1rem; */
+		align-items: baseline;
+}
+img{ 
+    max-width:90%
+}
+.button {
+    padding: 10px;
+    display: inline-block;
+    background: #0e69e9;
+    color: white;
+		margin-left: 25%;
+		margin-right: 25%;
+		text-decoration: none;
+	  align-items: baseline;
+		/* align-self: centre; */
+}
+
 
 * {
     box-sizing: border-box;

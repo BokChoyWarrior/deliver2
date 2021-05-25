@@ -1,9 +1,8 @@
 {% extends "layouts/base.njk" %}
 {% block body %}
-    <div class="shop-grid">
+   <!-- <div class="shop-grid">
         {% for shop in shops %}
             <div class="shop-card" style="background-image: url('shop-card-images/{{shop._id}}.png')">
-                <!-- <img class="shop-card-image" src="/shop-card-images/{{shop._id}}.png"> -->
                 <div class="shop-card-header">
                     <h1 class="shop-card-title">{{ shop.name }}</h1>
                     <a class="shop-card-link" href="/shops/{{shop._id}}">Order Now</a>
@@ -11,7 +10,73 @@
                 <p class="shop-card-description">This is the shop description: {{ shop.description }}</p>
             </div>
         {% endfor %}
+    </div> -->
+
+    <div class="shop-grid">
+        {% for shop in shops %}
+          <div class="stores">
+            <a href="">{{ shop.name }}</a>
+            <img src="shop-card-images/{{shop._id}}.png" alt ={{ shop.name }} width ="300">
+            <a href="/shops/{{shop._id}}" class ="button" id ="position">Shop Now!</a>
+
+            <p>{{ shop.description }}</p>
+          </div>
+          
+        {% endfor %}
     </div>
+
+    			<p></p>
+<p>Section to advertise the app.</p>
+<p></p>
+<p> Available on iOS and Android etc... </p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<hr>
+    <h2>We've got a lot of stores for you to choose from!</h2>
+	
+         
+
+    <div class = "stores">
+		
+     <p> <a href =""> </a> <img src= "images/ASDA.png" alt = "ASDA" width ="300"> </p>
+              <a href= "" class ="button" id ="position">Shop Now!</a>
+         </div>
+
+				  <div class = "stores">
+
+       <p> <a href =""> </a> <img src= "images/Morrisons.png" alt = "Morrisons" width ="300"> </p>
+   	        <a href= "" class ="button" id ="position">Shop Now!</a>
+		  </div>
+
+		<div class = "stores">
+
+            <p> <a href =""> </a> <img src= "images/Lidl.png" alt = "Lidl" width ="300"> </p>
+              <a href= "" class ="button" id ="position">Shop Now!</a>
+    </div>
+ 
+    <div class = "stores">
+
+      <p> <a href =""> </a> <img src= "images/Waitrose.png" alt = "Waitrose" width ="300"> </p>
+          <a href= "" class ="button" id ="position">Shop Now!</a>
+     </div>
+
+    <div class = "stores">
+	    <p> <a href =""> </a> <img src= "images/Aldi.jpg" alt = "Aldi"height ="200" width ="300"> </p>
+
+			 <a href= "" class ="button" id ="position">Shop Now!</a>
+    </div>
+
+      <div class = "stores">
+
+       <p> <a href =""> </a> <img src= "images/Co-op.png" alt = "Co-operative" width ="300"> </p>
+           <a href= "" class ="button" id ="position">Shop Now!</a>
+      </div>
+               
+<hr>
+<p>Contact us/Social media  </p>
+
 
     <script>
 
