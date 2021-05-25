@@ -21,6 +21,7 @@ To set up the app, you'll need some things installed:
 - [node.js](https://nodejs.org/en/)
 - Text editor/IDE of your choice (I recommend [VS Code](https://code.visualstudio.com/))
 - [Git](https://git-scm.com/)
+
 For all of the above, Make sure you choose the correct version (32bit or 64bit) for your OS
 #### ⚠️⚠️⚠️⚠️
 **You will need the ".env" file from someone before the webapp can contact the mongoDB server. Please ask for it from Charlie or Harvey!**
