@@ -3,20 +3,26 @@ var Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
-  email: String,
+  email: { type: String, required: true, unique: true },
   password: String,
   address: String,
   postcode: String,
-  type: Number, // 0 for base user, 1 for shop
-  basket: [
+  type: { type: Number, default: 0 },// 0 = user, 1 = shop
+  emailActive: { type: Boolean, default: false },
+  baskets: [
     {
-      item: {
-        type: String,
-        ref: 'Item'
-      },
-      quantity: Number
+      shop: { type: String, ref: 'Shop' },
+      basket: [
+        {
+          item: {
+            type: String,
+            ref: 'Item'
+          },
+          quantity: Number,
+        }
+      ]
     }
-  ]
+  ],
 }, { timestamps: true });
 
 userSchema.methods.verify = async function (password) {
