@@ -31,7 +31,7 @@ For all of the above, Make sure you choose the correct version (32bit or 64bit) 
 
 2. Clone the project with `git clone https://github.com/BokChoyWarrior/deliver2`. In windows you'll need to run this from git bash terminal **Make sure you clone into the directory you made in step 1!**
 
-3. Change your current directory to `xyz/deliver2/`, so if you ran the **clone** command in `C:\Dev\`, you would now want to be inside `C:\Dev\deliver2\`
+3. Change your current directory to `xyz\deliver2\`, so if you ran the **clone** command in `C:\Dev\`, you would now want to be inside `C:\Dev\deliver2\`
 
 4. Install dependencies - `npm install`
 
