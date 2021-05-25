@@ -6,20 +6,21 @@ Test delivery webapp
 - [x] Login page
 - [x] Shop selector
 - [x] Order page
-- [ ] Shopping basket
+- [x] Shopping basket
 - [ ] Main page layout decided
 ##### Tech stuff
-- [ ] The API
+- [ ] The API (WIP)
 - [ ] Contacting our own DB server
-- [ ] Unit testing (ongoing)
-- [ ] Login sessions
+- [ ] Unit testing (WIP)
+- [ ] Login sessions for API (WIP)
 
 ## Setup
 ### Prerequisites
 To set up the app, you'll need some things installed:
 
 - [node.js](https://nodejs.org/en/)
-- Text editor/IDE of your choice
+- Text editor/IDE of your choice (I recommend [VS Code](https://code.visualstudio.com/))
+- [Git](https://git-scm.com/)
 #### ⚠️⚠️⚠️⚠️
 **You will need the ".env" file from someone before the webapp can contact the mongoDB server. Please ask for it from Charlie or Harvey!**
 ### Installation
@@ -52,8 +53,7 @@ C:\Dev\Basketdrop\deliver2>npm run dev
 
 Visit [http://127.0.0.1:3000/](http://127.0.0.1:3000/) to see the app!
 
-
-If you have any problems with installation let me, or charlie know.
+If you have any problems with installation let me, or charlie know in slack.
 
 ### Testing
 __Not yet implemented!__
