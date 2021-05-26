@@ -14,6 +14,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var itemsRouter = require('./routes/items');
 var shopsRouter = require('./routes/shops');
+var addItemRouter = require('./routes/addItem');
 
 var apiRouter = require('./routes/api');
 
@@ -67,6 +68,7 @@ app.use('/users', usersRouter);
 app.use('/items', itemsRouter);
 app.use('/shops', shopsRouter);
 app.use('/birds', birdsRouter);
+app.use('/addItem', addItemRouter);
 
 app.use('/api', apiRouter);
 
