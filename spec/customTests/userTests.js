@@ -1,9 +1,19 @@
 var model = require("../../models/user");
+var app = require("../../app");
+var http = require('http');
 var axios = require("axios");
 const { express } = require("express");
 
 describe("GET /", () => {
-  beforeAll(async () => {
+  var server;
+  beforeAll(() => {
+    server = http.createServer(app);
+    server.listen(3000);
+  });
+  afterAll(() => {
+    server.close();
+  });
+  beforeEach(async () => {
     this.response = await axios.get("http://localhost:3000/").catch(err => console.log(err));
   });
   it("returns status 200", () => {
@@ -11,7 +21,7 @@ describe("GET /", () => {
   });
   it("contains the app name (deliver2)", () => {
     expect(this.response.data).toContain("Deliver2")
-  })
+  });
 });
 
 // feel free to un-comment 
