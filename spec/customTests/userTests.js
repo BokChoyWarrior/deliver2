@@ -3,7 +3,7 @@ var axios = require("axios");
 const { express } = require("express");
 
 describe("GET /", () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     this.response = await axios.get("http://localhost:3000/").catch(err => console.log(err));
   });
   it("returns status 200", () => {
