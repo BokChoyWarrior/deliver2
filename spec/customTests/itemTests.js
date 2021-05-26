@@ -1,4 +1,4 @@
-var model = require("../models/user");
+var model = require("../../models/items");
 
 describe("make my model check fail", function() {
   it("make my null check fail", function() {

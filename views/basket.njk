@@ -3,6 +3,7 @@
     <div class="main-container">
         <h1>Basket</h1>
         <div class="basket-summary">
+        <p>Test</p>
             {% for object in user.basket %}
                 {% set item = object.item %}
                 <div id="item{{ item._id }}-quantity">{{ object.quantity }}</div>
