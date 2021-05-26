@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 const shopSchema = new Schema({
   name: String,
-  description: String
-}, {timestamps: true});
+  description: String,
+  categories: [{category: {type: String, ref: 'ShopCategory'}}]
+}, { timestamps: true });
 
 module.exports = mongoose.model('Shop', shopSchema);

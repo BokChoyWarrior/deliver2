@@ -15,10 +15,17 @@ router.get('/', function(req, res, next) {
 
 router.post('/register', async(req, res, next) => {
     console.log(req.body);
-    var { email, password } = req.body;
+    var { email, password, userType } = req.body;
+    var type = 0;
+    if (userType == "on") {
+        type = 1;
+    }
+    
+    console.log(type);
     await bcrypt.genSalt(saltRounds, async function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
             var user = new User({
+                type: type,
                 email: email,
                 password: hash
             });
