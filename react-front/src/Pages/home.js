@@ -1,6 +1,7 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Shopcard from '../components/shopcard';
+import axios from 'axios';
 
 const ShopGrid = styled.div`
     display: grid;
@@ -9,16 +10,16 @@ const ShopGrid = styled.div`
 `
 
 function Home(){
-    useEffect(function(){
-
-        console.log('testing');
+    var [shops, setShops] = useState(null);
+    useEffect( async function(){
+        var data = await axios.get('http://localhost:3000/api/shops').catch(err => console.log(err));
+        data = data.data;
+        var shops = data.map(shop => <Shopcard name={shop.name} description={shop.description} id={shop._id} />);
+        setShops(shops);
     }, []);
     return (
         <ShopGrid>
-            <Shopcard />
-            <Shopcard />
-            <Shopcard />
-            <Shopcard />
+            {shops}
         </ShopGrid>
         
     )

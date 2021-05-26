@@ -1,4 +1,5 @@
 import Home from './Pages/home';
+import Shops from './Pages/shops';
 import Shop from './Pages/shop';
 import Nav from './components/nav';
 import './style.css';
@@ -19,7 +20,8 @@ function App() {
     <Main>
       <Nav />
       <Route exact path="/" component={Home} />
-      <Route exact path="/shops" component={Shop} />
+      <Route exact path="/shops" component={Shops} />
+      <Route exact path="/shop" component={Shop} />
     </Main>
   );
 }

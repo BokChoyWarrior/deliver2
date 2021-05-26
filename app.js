@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 var express = require('express');
 var session = require('express-session'); //express sessions middleware (documentation can be found at https://www.npmjs.com/package/express-session)
 var MongoStore = require('connect-mongo'); //this will allow us to use mongodb to store our sessions.
@@ -21,6 +22,7 @@ var birdsRouter = require('./routes/birds'); // for testing!
 
 
 var app = express();
+app.use(cors());
 //sessions will be stored inside the mongodb atlas under the sessions collection.
 app.use(session({
   secret: 'appleteasers', //good ol apple teasers ;P

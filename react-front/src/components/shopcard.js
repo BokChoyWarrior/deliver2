@@ -1,4 +1,6 @@
+import { render } from 'nunjucks';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const Shopcarddescription = styled.p`
     font-size: 1rem;
@@ -29,7 +31,7 @@ const Scard = styled.div`
     display: flex;
     flex-direction: column;
     background-size: cover;
-    background-color: black;
+    background-image: url("${props => props.image}");
     min-height: 20rem;
     transition: 1s;
 
@@ -55,17 +57,31 @@ const Scard = styled.div`
     }
 `
 
-function Shopcard(props){
-    var title = "test";
-    var description = "test";
+function renderdiscount(){
+    if(1 == 0){
+        return null;
+    }else{
+        return null;
+    }
+}
 
+
+function Shopcard(props){
+    
+    let imageurl = 'http://localhost:3000/public/shop-card-images/' + props.id + ".png";
     return (
-        <Scard>
+        <Scard image={imageurl}>
             <div>
-                <Shopcardtitle>{title}</Shopcardtitle>
-                <Shopcardlink>order now</Shopcardlink>
+                {renderdiscount()}
+                <Shopcardtitle>{props.name}</Shopcardtitle>
+                <Link to={{
+                    pathname:'/shop',
+                    data:{
+                        id:`${props.id}`
+                    }
+                }} ><Shopcardlink >order now</Shopcardlink></Link>
             </div>
-            <Shopcarddescription>{description}</Shopcarddescription>
+            <Shopcarddescription>{props.description}</Shopcarddescription>
         </Scard>
     )
 }

@@ -10,7 +10,7 @@ router.route('/')
 
     .get(async (req, res) => {
         var shops = await Shops.find();
-        res.json(shops);
+        res.set('access-control-allow-origin','*').json(shops);
     })
 
     // .post(async (req, res) => {
