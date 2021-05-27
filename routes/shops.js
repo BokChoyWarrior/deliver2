@@ -3,6 +3,8 @@ const router = express.Router()
 const Shops = require('../models/shop')
 const Items = require('../models/items')
 
+const { findOrCreateShopBasket } = require('../lib/common')
+
 router.get('/', (req, res) => {
   Shops.find().then(data => {
     res.send(data)
@@ -18,13 +20,13 @@ router.post('/add', (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-  console.log('got something')
-  const id = req.params.id
-  const items = await Items.find({ shop: id })
-  Shops.findOne({ _id: id }).then(data => {
-    console.log(data)
-    res.render('shop', { shop: data, items: items, user: req.user })
-  }).catch(err => console.log(err))
+  const shopId = req.params.id
+  const items = await Items.find({ shop: shopId })
+  const basket = await findOrCreateShopBasket(req.user, shopId)
+  // console.log(basket, '<== basket! ======', items, '<== items!')
+  Shops.findOne({ _id: shopId }).then(data => {
+    res.render('shop', { shop: data, items: items, user: req.user, basket: basket.basket })
+  }).catch(err => { console.log(err); res.status(500) })
 })
 
 module.exports = router

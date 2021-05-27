@@ -75,7 +75,7 @@ router.post('/add2basket', ensureAuthenticated, async (req, res, next) => {
   let response = {}
   try {
     const userid = req.user._id
-    let { itemid, amount } = req.body
+    let { itemid, amount, shopId } = req.body
     // First we check that the amount to add is valid
     amount = +amount
     if (!Number.isInteger(amount)) {
@@ -84,29 +84,43 @@ router.post('/add2basket', ensureAuthenticated, async (req, res, next) => {
     // TODO
     // We should also check that the shop actually has the item requested! (If the user doesn't already have in basket)
     // ^ ^ ^ ^
-    const user = await User.findOne({ _id: userid }).populate('basket.item')
-    const basket = user.basket
-    const itemIndex = basket.findIndex(x => x.item._id === itemid)
+    const user = await User.findOne({ _id: userid })
+    console.log(user.baskets)
+    const baskets = user.baskets
+    let basketIndex = baskets.findIndex(x => x.shop === shopId)
+    while (basketIndex === -1) {
+      console.log(basketIndex)
+      baskets.push({
+        shop: shopId,
+        basket: []
+      })
+      user.save()
+      basketIndex = baskets.findIndex(x => x.shop === shopId)
+    }
+
+    const basket = user.baskets[basketIndex].basket
+    console.log(basket)
+    const itemIndex = basket.findIndex(x => x.item === itemid)
     // console.log(user.basket[itemIndex]);
     let item
     // If item is in basket
     // console.log(itemIndex);
     if (itemIndex !== -1) {
       // console.log(user.basket[itemIndex]);
-      const quantity = Math.max(user.basket[itemIndex].quantity + amount, 0)
+      const quantity = Math.max(basket[itemIndex].quantity + amount, 0)
       if (quantity === 0) {
-        user.basket.pull({ _id: user.basket[itemIndex]._id })
+        basket.pull({ _id: basket[itemIndex]._id })
         item = undefined
       } else {
-        user.basket[itemIndex].quantity = quantity
+        basket[itemIndex].quantity = quantity
       }
-      item = user.basket[itemIndex]
+      item = basket[itemIndex]
     } else if (amount > 0) {
       item = {
         item: itemid,
         quantity: amount
       }
-      user.basket.push(item)
+      basket.push(item)
     }
     user.save()
 

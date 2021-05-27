@@ -10,12 +10,12 @@
                     <h1>{{item.name}}</h1>
                     <p>{{ convertPrice(item.price) }}</p>
                     <div class="item-card-controls">
-                        {% set quantity = quantityInBasket(item._id, user) %}
-                        <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1)">
+                        {% set quantity = quantityInBasket(basket, item._id) %}
+                        <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1, '{{ shop._id }}')">
                             <span class="material-icons">add</span></h1>
                         {% if quantity %}
                             <p id="item{{ item._id }}">{{ quantity }}</p>
-                            <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', -1)" style="background-color: crimson;">
+                            <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', -1, '{{ shop._id }}')" style="background-color: crimson;">
                                 <span class="material-icons">remove</span></h1>
                         {% endif %}
                     </div>
@@ -26,11 +26,12 @@
 
     <script>
 
-        function add_or_remove_2basket(target, item_id, amount) {
+        function add_or_remove_2basket(target, item_id, amount, shop_id) {
             console.log(target, item_id, amount);
             $.post("/users/add2basket", {
                 itemid: item_id,
-                amount: amount
+                amount: amount,
+                shopId: shop_id
             }, function (data) {
                 if (data.success) {
                     var quantity = Number($('#item' + item_id).text());
