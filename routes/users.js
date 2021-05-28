@@ -12,27 +12,53 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/register', async (req, res, next) => {
-  console.log(req.body)
   const { email, password, userType } = req.body
   let type = 0
   if (userType === 'on') {
     type = 1
   }
 
-  console.log(type)
-  await bcrypt.genSalt(saltRounds, async function (_err, salt) {
-    bcrypt.hash(password, salt, function (_err, hash) {
-      const user = new User({
-        type: type,
-        email: email,
-        password: hash
-      })
-      user.save().then(data => {
-        console.log(data)
-        res.send({ msg: email + ' has been registered' })
-      }).catch(err => console.log(err))
-    })
+  const flashes = []
+  // validate email
+  User.findOne({ email: email }, '_id').then((userExists) => {
+    if (userExists !== null) {
+      flashes.push({ type: 'error', msg: `Email: ${email} is already in use.` })
+    }
   })
+    .then(() => {
+      if (password.length < 8) {
+        flashes.push({ type: 'error', msg: 'Password must be at least 8 characters' })
+      }
+    })
+    .catch(() => {
+      flashes.push({ type: 'error', msg: 'There was an error, please try again later.' })
+    })
+    .then(() => {
+      if (flashes.length > 0) {
+        res.render('adduser', { flashes: flashes })
+      }
+    })
+    .then(async () => {
+      if (flashes.length > 0) {
+        return
+      }
+      // passed validation!
+      await bcrypt.genSalt(saltRounds, async function (_err, salt) {
+        bcrypt.hash(password, salt, function (_err, hash) {
+          const user = new User({
+            type: type,
+            email: email,
+            password: hash
+          })
+          user.save().then(data => {
+            console.log(data)
+            // TODO: Redirect to email verification!
+            res.redirect('/users/login')
+          }).catch(err => console.log('Error while registering user:', err))
+        })
+      })
+    })
+  // validate password
 })
 
 router.get('/login', (req, res) => {
