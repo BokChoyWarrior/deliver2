@@ -292,6 +292,30 @@ nav ul li {
     vertical-align: middle;
 }
 
+.flashes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50vw;
+    margin: 0 auto 0 auto;
+}
+
+.flashes * {
+    font-size: 2rem;
+}
+
+.flash-error {
+    color: crimson;
+}
+
+.flash-notify {
+    color: limegreen;
+}
+
+.flash-message {
+    color:mediumorchid;
+}
+
 @keyframes logo {
     from {
         transform: scale(1);
