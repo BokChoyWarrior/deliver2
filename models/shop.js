@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const shopSchema = new Schema({
   name: String,
-  description: String,
+  description: { type: String, default: 'Shop description here' },
   shown: { type: Boolean, default: false },
   categories: [{ category: { type: String, ref: 'ShopCategory' } }]
 }, { timestamps: true })
