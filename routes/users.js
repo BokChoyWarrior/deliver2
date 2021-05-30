@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
+const Shop = require('../models/shop')
 const passport = require('passport')
 const { ensureAuthenticated } = require('../strategies/auth')
 const saltRounds = 10
@@ -44,12 +45,21 @@ router.post('/register', async (req, res, next) => {
       }
       // passed validation!
       await bcrypt.genSalt(saltRounds, async function (_err, salt) {
-        bcrypt.hash(password, salt, function (_err, hash) {
+        bcrypt.hash(password, salt, async function (_err, hash) {
+          let shopId
+          if (type === 1) {
+            const shop = new Shop({
+              name: email
+            })
+            await shop.save()
+            shopId = shop._id
+          }
           const user = new User({
             type: type,
             email: email,
             password: hash
           })
+          if (shopId) { user.shopId = shopId }
           user.save().then(data => {
             console.log(data)
             // TODO: Redirect to email verification!
