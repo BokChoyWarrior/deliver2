@@ -1,0 +1,29 @@
+{% extends "layouts/base.njk" %}
+{% block body %}
+<div class="flashes">
+    {% for flash in flashes %}
+    <div class="flash flash-{{flash.type}}">{{ flash.msg }}</div>
+    {% endfor %}
+</div>
+<div class="user-preferences">
+    <form action="/account" method="POST">
+        <fieldset>
+            <legend>Update info</legend>
+            {% if user.type == 1 %}
+            <input type="text" name="shopName" placeholder="{{ shop.name }}" minlength="2">
+            <label for="shopDescription">Shop description:</label>
+            <textarea id="shopDescription" name="shopDescription" rows="7" cols="50">
+            {{- shop.description -}}
+            </textarea> 
+            <input type="checkbox" name="shopShown">
+            <label for="shopShown">Show your shop?</label>
+            {% endif %}
+            <label for="address">Address:</label>
+            <input type="text" name="address">
+            <label for="postcode">Postcode:</label>
+            <input type="text" name="postcode">
+            <input type="submit" value="UPDATE">
+        </fieldset>
+    </form>
+</div>
+{% endblock %}
