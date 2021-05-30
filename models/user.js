@@ -8,6 +8,7 @@ const userSchema = new Schema({
   address: String,
   postcode: String,
   type: { type: Number, default: 0 }, // 0 = user, 1 = shop
+  shopId: { type: String, ref: 'Shop' },
   emailActive: { type: Boolean, default: false },
   baskets: [
     {
