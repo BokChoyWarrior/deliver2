@@ -1,7 +1,7 @@
 {% extends "layouts/base.njk" %}
 {% block body %}
     <div class="main-container">
-        <div class="shop-card" style="background-image: url('/shop-card-images/{{shop._id}}.png');">
+        <div class="shop-card" style="background-image: url('/shop-card-images/{{shop.imagefile}}');">
             <h1 class="shop-card-title">{{shop.name}}</h1>
         </div>
         <div class="items-grid">

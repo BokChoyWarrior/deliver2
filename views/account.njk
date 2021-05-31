@@ -2,16 +2,14 @@
 {% block body %}
 {% include "flashes.njk" %}
 <div class="user-preferences">
-    <form action="/account" method="POST">
+    <form action="/account" method="POST" enctype="multipart/form-data">
         <fieldset>
             <legend>Update info</legend>
+            <label for="address">Address:</label>
+            <input type="text" name="address" value="{{ user.address }}">
+            <label for="postcode">Postcode:</label>
+            <input type="text" name="postcode" value="{{ user.postcode }}">
             {% if user.type == 1 %}
-            <label for="shopName">Shop name</label>
-            <input type="text" name="shopName" value="{{ shop.name }}" minlength="2" required="true">
-            <label for="shopDescription">Shop description</label>
-            <textarea id="shopDescription" name="shopDescription" rows="7" cols="50" required="true">
-            {{- shop.description -}}
-            </textarea>
             {% if shop.shown %}
             {% set checked = "checked" %}
             {% else %}
@@ -19,11 +17,15 @@
             {% endif %}
             <input type="checkbox" name="shopShown" {{checked}}>
             <label for="shopShown">Show your shop?</label>
+            <label for="shopName">Shop name</label>
+            <input type="text" name="shopName" value="{{ shop.name }}" minlength="2" required="true">
+            <label for="shopDescription">Shop description</label>
+            <textarea id="shopDescription" name="shopDescription" rows="7" cols="50" required="true">
+            {{- shop.description -}}
+            </textarea>
+            <label for="image">Upload your shop image here</label>
+            <input type="file" name="image" accept="image/*">
             {% endif %}
-            <label for="address">Address:</label>
-            <input type="text" name="address" value="{{ user.address }}">
-            <label for="postcode">Postcode:</label>
-            <input type="text" name="postcode" value="{{ user.postcode }}">
             <input type="submit" value="UPDATE">
         </fieldset>
     </form>

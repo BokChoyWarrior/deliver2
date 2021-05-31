@@ -6,6 +6,21 @@ const User = require('../models/user')
 const { ensureAuthenticated } = require('../strategies/auth')
 const { postcodeValidator } = require('postcode-validator')
 const { isEqual } = require('lodash')
+const multer = require('multer')
+const multerEngine = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/shop-card-images') // Destination folder
+  },
+  limits: {
+    fieldSize: 1024 * 1024 * 4,
+    fieldNameSize: 2000
+  },
+  filename: async (req, file, cb) => {
+    const ext = file.mimetype.split('/')[1]
+    cb(null, `${req.user.shopId}-${Date.now()}.${ext}`)
+  }
+})
+const upload = multer({ storage: multerEngine })
 
 const checkboxToBool = { on: true, off: false }
 
@@ -24,9 +39,7 @@ router.route('/account', ensureAuthenticated)
     }
     res.render('account', { user: req.user, shop: shop })
   })
-  .post(async (req, res) => {
-    console.log(req.body)
-
+  .post(upload.single('image'), async (req, res) => {
     const flashes = []
     let successMsg = false
     const oldUser = req.user
@@ -68,6 +81,7 @@ router.route('/account', ensureAuthenticated)
 
         shop.description = shopDescription
 
+        if (req.file !== undefined) { shop.imagefile = req.file.filename }
         shop.save()
           .then(successMsg = 'Successfully updated details')
           .catch(_err => flashes.push({ type: 'error', msg: 'Something went wrong while updating your shop. Please try again' }))
