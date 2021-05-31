@@ -5,6 +5,9 @@ const Item = require('../models/items')
 const User = require('../models/user')
 const { ensureAuthenticated } = require('../strategies/auth')
 const { postcodeValidator } = require('postcode-validator')
+const { isEqual } = require('lodash')
+
+const checkboxToBool = { on: true, off: false }
 
 router.get('/', async function (req, res, next) {
   const shops = await Shop.find({ shown: true }) // let's get all the shops
@@ -25,6 +28,7 @@ router.route('/account', ensureAuthenticated)
     console.log(req.body)
 
     const flashes = []
+    let successMsg = false
     const oldUser = req.user
     const newUser = await User.findById(oldUser._id)
     if (!newUser) { res.status(500); return }
@@ -32,47 +36,49 @@ router.route('/account', ensureAuthenticated)
     // eslint-disable-next-line no-unused-vars
     const { postcode, address, shopName, shopDescription, shopShown } = req.body
     // for all users including shops
-    if (postcodeValidator(postcode, 'GB') === false) {
-      flashes.push({ type: 'error', msg: 'Error: postcode was invalid' })
-    } else {
-      newUser.postcode = postcode
-      if (address) { newUser.address = address }
+    // Postcode should be checked ideally clientside...
+    if (postcode !== oldUser.postcode) {
+      if (postcodeValidator(postcode, 'GB')) {
+        newUser.postcode = postcode
+      } else {
+        flashes.push({ type: 'error', msg: 'Postcode was invalid' })
+      }
     }
-    newUser.save()
-      .then(flashes.push({ type: 'success', msg: 'User details updated successfully!' }))
-      .catch(_err => flashes.push({ type: 'error', msg: 'Something went wrong while updating your user. Please try again' }))
+
+    if (address !== oldUser.address) { newUser.address = address }
+
+    // using Lodash isEqual function here because we are comparing objects
+    // eslint-disable-next-line eqeqeq
+    if (!isEqual(newUser, oldUser)) {
+      newUser.save()
+        .then(successMsg = 'Successfully updated details')
+        .catch(_err => flashes.push({ type: 'error', msg: 'Something went wrong while updating your user. Please try again' }))
+    }
 
     // for shops only
-    let shown = false
-    if (shopShown === 'on') { shown = true }
-
+    let shop
     if (req.user.type === 1) {
-      const shop = await Shop.findById(oldUser.shopId)
+      shop = await Shop.findById(oldUser.shopId)
       if (!shop) {
         flashes.push({ type: 'error', msg: 'Something went wrong while updating your shop. Please try again' })
       } else {
-        // shown
-        shop.shown = shown
-        // shop name
-        if (!shopName) {
-          flashes.push({ type: 'error', msg: 'You need to provide a shop name.' })
-        } else {
-          shop.name = shopName
-        }
+        shop.shown = checkboxToBool[shopShown]
 
-        // shop description
-        if (!shopDescription) {
-          flashes.push({ type: 'error', msg: 'You need to provide a shop description.' })
-        } else {
-          shop.description = shopDescription
-        }
+        shop.name = shopName
+
+        shop.description = shopDescription
+
         shop.save()
-          .then(flashes.push({ type: 'success', msg: 'Shop details updated successfully!' }))
+          .then(successMsg = 'Successfully updated details')
           .catch(_err => flashes.push({ type: 'error', msg: 'Something went wrong while updating your shop. Please try again' }))
       }
     }
 
-    res.render('account', { user: newUser, flashes: flashes })
+    if (successMsg) {
+      flashes.push({ type: 'success', msg: successMsg })
+    }
+
+    res.render('account', { user: newUser, shop: shop, flashes: flashes })
   })
 
 module.exports = router
