@@ -32,10 +32,14 @@
           </h1>
           {% if user %}
             <p>{{ user.email }}</p>
-            <div class="container-row center" style="margin-right: 2rem;">
+            <div class="container-row center" style="margin-right: 2rem; padding: 0.5rem;">
               <a href="/users/logout" class="button-white" style="margin-right: 1rem;">logout</a>
+              <a href="/account">
+                <span class="material-icons" style="font-size: 2rem;">manage_accounts</span>
+              </a>
               <a href="/users/basket">
-                <span class="material-icons" style="font-size: 2rem;">shopping_cart</span></a>
+                <span class="material-icons" style="font-size: 2rem;">shopping_cart</span>
+              </a>
             </div>
 
           {% else %}
