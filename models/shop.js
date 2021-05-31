@@ -5,6 +5,7 @@ const shopSchema = new Schema({
   name: String,
   description: { type: String, default: 'Shop description here' },
   shown: { type: Boolean, default: false },
+  imagefile: { type: String, default: 'default.jpg' },
   categories: [{ category: { type: String, ref: 'ShopCategory' } }]
 }, { timestamps: true })
 
