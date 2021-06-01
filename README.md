@@ -25,7 +25,7 @@ To set up the app, you'll need some things installed:
 For all of the above, Make sure you choose the correct version (32bit or 64bit) for your OS
 #### ⚠️⚠️⚠️⚠️
 **You will need the ".env" file from someone before the webapp can contact the mongoDB server. Please ask for it from Charlie or Harvey!**
-### Installation
+## Installation
 
 1. First of all, create and navigate to a directory in which you'd like to store the project. E.g. `C:\Dev\`
 
@@ -58,6 +58,6 @@ Visit [http://127.0.0.1:3000/](http://127.0.0.1:3000/) to see the app!
 If you have any problems with installation let me, or charlie know in slack.
 
 ### Testing
-__Not yet implemented!__
+__Work in progress!__
 
 More detailed explanation [on the express.js site.](https://expressjs.com/)

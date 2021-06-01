@@ -1,0 +1,5 @@
+<div class="flashes">
+    {% for flash in flashes %}
+    <div class="flash flash-{{flash.type}}">{{ flash.msg }}</div>
+    {% endfor %}
+</div>

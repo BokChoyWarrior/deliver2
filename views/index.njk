@@ -2,13 +2,13 @@
 {% block body %}
     <div class="shop-grid">
         {% for shop in shops %}
-            <div class="shop-card" style="background-image: url('shop-card-images/{{shop._id}}.png')">
+            <div class="shop-card" style="background-image: url('shop-card-images/{{shop.imagefile}}')">
                 <!-- <img class="shop-card-image" src="/shop-card-images/{{shop._id}}.png"> -->
                 <div class="shop-card-header">
                     <h1 class="shop-card-title">{{ shop.name }}</h1>
                     <a class="shop-card-link" href="/shops/{{shop._id}}">Order Now</a>
                 </div>
-                <p class="shop-card-description">This is the shop description: {{ shop.description }}</p>
+                <p class="shop-card-description">{{ shop.description }}</p>
             </div>
         {% endfor %}
     </div>

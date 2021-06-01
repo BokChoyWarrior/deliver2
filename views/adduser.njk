@@ -1,17 +1,20 @@
 {% extends "layouts/base.njk" %}
 {% block body %}
+{% include "flashes.njk" %}
 <div class="login-container">
-    <h1>Example User Registeration Form!</h1>
+    <h1>Register now!</h1>
     <form action="/users/register" method="POST">
         <fieldset>
             <legend>Register</legend>
-            <input type="text" name="email" placeholder="email">
-            <input type="password" name="password" placeholder="password">
+            <input type="text" name="email" placeholder="email" minlength="1">
+            <input type="password" name="password" placeholder="password" minlength="8">
             <input type="checkbox" name="userType">
             <label for="userType">Check if you are a shop</label>
             <input type="submit" value="REGISTER">
         </fieldset>
     </form>
+    <h2>Already have an account?</h2>
+    <a class="button-white" href="/users/login" style="color: black;">Login</a>
 </div>
 {% endblock %}
 

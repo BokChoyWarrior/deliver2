@@ -1,10 +1,12 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const shopSchema = new Schema({
   name: String,
-  description: String,
-  categories: [{category: {type: String, ref: 'ShopCategory'}}]
-}, { timestamps: true });
+  description: { type: String, default: 'Shop description here' },
+  shown: { type: Boolean, default: false },
+  imagefile: { type: String, default: 'default.jpg' },
+  categories: [{ category: { type: String, ref: 'ShopCategory' } }]
+}, { timestamps: true })
 
-module.exports = mongoose.model('Shop', shopSchema);
+module.exports = mongoose.model('Shop', shopSchema)
