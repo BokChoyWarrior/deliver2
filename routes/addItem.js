@@ -3,17 +3,39 @@ var router = express.Router();
 var User = require('../models/user');
 var Items = require('../models/items');
 const { ensureAuthenticated } = require('../strategies/auth');
+const { head } = require('./users');
 
 // your code here
 
-router.get('/', function (req, res, next) {
-    res.render('additem', { user: req.user });
-});
+router.get('/', ensureAuthenticated, async(req, res, next) => {
+    if (req.user.type !== 1) {
+        res.redirect('/')
+    }else{
+        res.render('additem', { user: req.user }); 
+    }
+    
 
-router.post('/', async (req, res, next) => {
+});
+router.post('/', ensureAuthenticated, function (req, res, next) {
+    if (req.user.type !== 1) {  
+        res.redirect('/users/login')
+        return
+    }
+
+    var { item, itemdescription, price } = req.body
+    console.log(item, itemdescription, price)
+    var item = new Items({
+    name:item,
+    description:itemdescription,
+    price:price });
+    console.log(item);
+    item.save();
+
 
 
     // for reference:
+
+    //Item name; item description and item price in PENCE! 
     // ============================================================
     // console.log(req.body);
     // var { email, password, userType } = req.body;
@@ -37,6 +59,4 @@ router.post('/', async (req, res, next) => {
     //     });
     // });
 });
-
-
-module.exports = router;
+module.exports=router

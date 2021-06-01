@@ -1,15 +1,14 @@
 {% extends "layouts/base.njk" %}
 {% block body %}
 <div class="login-container">
-    <h1>Example Item Addition Form!</h1>
+    <h1>Add items and see the descriptions!</h1>
     <form action="/addItem" method="POST">
         <fieldset>
-            {# <legend>Register</legend>
-            <input type="text" name="email" placeholder="email">
-            <input type="password" name="password" placeholder="password">
-            <input type="checkbox" name="userType">
-            <label for="userType">Check if you are a shop</label>
-            <input type="submit" value="REGISTER"> #}
+             <legend>Add Items</legend>
+            <input type="text" name="item" placeholder="item">
+            <textarea name="itemdescription" placeholder="itemdescription"></textarea>
+            <input type="price" name="price" placeholder="price">
+            <input type="submit" value="Find"> 
         </fieldset>
     </form>
 </div>
