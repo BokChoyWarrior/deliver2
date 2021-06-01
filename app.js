@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 const passport = require('passport') // passport is our authentication middleware, we can configure this to allow login via google, facebook, etc... for now we'll just be using our own local authentication strategy.
 require('./strategies/users')(passport) // if you want to know how our local strategy works check the ./strategies/users.js file, basic stuff really.
 const nunjucks = require('nunjucks')
+mongoose.set('debug', true)
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')

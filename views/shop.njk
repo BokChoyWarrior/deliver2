@@ -1,6 +1,16 @@
 {% extends "layouts/base.njk" %}
 {% block body %}
     <div class="main-container">
+        <div class="shop-basket">
+            <h1>Currently in Basket</h1>
+            {% if basket %}
+                <ul>
+                    {% for thing in basket %}
+                        <li>{{ thing.item.name }} {{thing.quantity}}<li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
         <div class="shop-card" style="background-image: url('/shop-card-images/{{shop.imagefile}}');">
             <h1 class="shop-card-title">{{shop.name}}</h1>
         </div>

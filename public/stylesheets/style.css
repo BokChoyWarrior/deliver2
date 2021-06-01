@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 :root {
-    --main-bg: #001B2E;
-    --main-fg: #FFFCF9;
+    --main-fg: #7B3DB8;
+    --color3: #35B6E0;
+    --color1: #03EFFD;
+    --color2:  #726ECD;
+    --main-bg: #FEFEFE;
 }
 
 * {
@@ -83,7 +86,7 @@ nav {
     align-items: center;
     justify-content: space-between;
     height: 4rem;
-    background-color: dodgerblue;
+    background-color: var(--main-fg);
     width: 100%;
     margin-top: 4rem;
     margin-bottom: 2rem;
@@ -92,7 +95,7 @@ nav {
 nav h1 {
     color: white;
     font-size: 3rem;
-    background-color: springgreen;
+    background-color: var(--color1);
     padding: 1rem;
     border-radius: 10px;
     transform: rotate(-10deg);
@@ -275,6 +278,18 @@ nav ul li {
     padding: 1rem;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.shop-basket{
+    position: fixed;
+    left: 1rem;
+    top: 20%;
+    display: flex;
+    flex-direction: column;
+    background-color: gray;
+    border-radius: 10px;
+    padding: 1rem;
+
 }
 
 .basket-summary {
