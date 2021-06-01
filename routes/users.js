@@ -6,6 +6,7 @@ const Shop = require('../models/shop')
 const passport = require('passport')
 const { ensureAuthenticated } = require('../strategies/auth')
 const saltRounds = 10
+const emailRegex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -29,6 +30,11 @@ router.post('/register', async (req, res, next) => {
     .then(() => {
       if (password.length < 8) {
         flashes.push({ type: 'error', msg: 'Password must be at least 8 characters' })
+      }
+    })
+    .then(() => {
+      if (!emailRegex.test(email)) {
+        flashes.push({ type: 'error', msg: 'Invalid email' })
       }
     })
     .catch(() => {
