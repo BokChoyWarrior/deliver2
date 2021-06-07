@@ -9,11 +9,14 @@ const mongoose = require('mongoose')
 const passport = require('passport') // passport is our authentication middleware, we can configure this to allow login via google, facebook, etc... for now we'll just be using our own local authentication strategy.
 require('./strategies/users')(passport) // if you want to know how our local strategy works check the ./strategies/users.js file, basic stuff really.
 const nunjucks = require('nunjucks')
+mongoose.set('debug', true)
 
-const indexRouter = require('./routes/index')
-const usersRouter = require('./routes/users')
-const itemsRouter = require('./routes/items')
-const shopsRouter = require('./routes/shops')
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var itemsRouter = require('./routes/items');
+var shopsRouter = require('./routes/shops');
+var addItemRouter = require('./routes/addItem');
+
 
 const apiRouter = require('./routes/api')
 
@@ -61,11 +64,13 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/', indexRouter)
-app.use('/users', usersRouter)
-app.use('/items', itemsRouter)
-app.use('/shops', shopsRouter)
-app.use('/birds', birdsRouter)
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/items', itemsRouter);
+app.use('/shops', shopsRouter);
+app.use('/birds', birdsRouter);
+app.use('/addItem', addItemRouter);
+
 
 app.use('/api', apiRouter)
 
