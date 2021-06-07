@@ -6,21 +6,8 @@ const User = require('../models/user')
 const { ensureAuthenticated } = require('../strategies/auth')
 const { postcodeValidator } = require('postcode-validator')
 const { isEqual } = require('lodash')
-const multer = require('multer')
-const multerEngine = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/shop-card-images') // Destination folder
-  },
-  limits: {
-    fieldSize: 1024 * 1024 * 4,
-    fieldNameSize: 2000
-  },
-  filename: async (req, file, cb) => {
-    const ext = file.mimetype.split('/')[1]
-    cb(null, `${req.user.shopId}-${Date.now()}.${ext}`)
-  }
-})
-const upload = multer({ storage: multerEngine })
+const multer = require('../multer.js')
+const cloudinary = require('../cloudinary.js')
 
 const checkboxToBool = { on: true, off: false }
 
@@ -32,6 +19,7 @@ router.get('/', async function (req, res, next) {
 })
 
 router.route('/account', ensureAuthenticated)
+
   .get(async (req, res) => {
     let shop = null
     if (req.user.type === 1) {
@@ -39,15 +27,17 @@ router.route('/account', ensureAuthenticated)
     }
     res.render('account', { user: req.user, shop: shop })
   })
-  .post(upload.single('image'), async (req, res) => {
+
+  .post(multer.single('image'), async (req, res) => {
     const flashes = []
     let successMsg = false
     const oldUser = req.user
     const newUser = await User.findById(oldUser._id)
     if (!newUser) { res.status(500); return }
+
     // handle user input...
-    // eslint-disable-next-line no-unused-vars
     const { postcode, address, shopName, shopDescription, shopShown } = req.body
+
     // for all users including shops
     // Postcode should be checked ideally clientside...
     if (postcode !== oldUser.postcode) {
@@ -81,7 +71,16 @@ router.route('/account', ensureAuthenticated)
 
         shop.description = shopDescription
 
-        if (req.file !== undefined) { shop.imagefile = req.file.filename }
+        console.log('file:::::', req.file)
+        if (req.file !== undefined) {
+          await cloudinary.uploader.upload(req.file.path,
+            {
+              resource_type: 'image',
+              public_id: `shopImages/${req.user.shopId}`,
+              overwrite: true
+            },
+            function (_error, result) { shop.imagefile = result.url })
+        }
         shop.save()
           .then(successMsg = 'Successfully updated details')
           .catch(_err => flashes.push({ type: 'error', msg: 'Something went wrong while updating your shop. Please try again' }))
