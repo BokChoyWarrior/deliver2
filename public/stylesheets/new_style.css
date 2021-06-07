@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+/*
+#FEFEFE
+-- white
+
+#03EFFD
+-- light blue
+
+#35B6E0
+-- blue
+
+#726ECD
+-- lilac
+
+#7B3DB8
+-- purple
+
+*/
+:root {
+    --main-fg: #7B3DB8;
+    --color3: #35B6E0;
+    --color1: #03EFFD;
+    --color2:  #726ECD;
+    --main-bg: #FEFEFE;
+}
+
+* {
+  box-sizing: border-box;
+}
