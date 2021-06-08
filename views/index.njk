@@ -1,18 +1,19 @@
 {% extends "layouts/base.njk" %}
 {% block body %}
+<div class="body-container">
     <div class="shop-grid">
         {% for shop in shops %}
-            <div class="shop-card" style="background-image: url('{{shop.imagefile}}')">
-                <!-- <img class="shop-card-image" src="/shop-card-images/{{shop._id}}.png"> -->
+        <a href="/shops/{{shop._id}}">
+            <div class="shop-card" style="background-image: linear-gradient(rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0) 50%), url('{{shop.imagefile}}')">
                 <div class="shop-card-header">
                     <h1 class="shop-card-title">{{ shop.name }}</h1>
-                    <a class="shop-card-link" href="/shops/{{shop._id}}">Order Now</a>
                 </div>
                 <p class="shop-card-description">{{ shop.description }}</p>
             </div>
+        </a>
         {% endfor %}
     </div>
-
+</div>
     <script>
 
         function add_or_remove_2basket(target, item_id, amount) {

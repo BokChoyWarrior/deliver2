@@ -25,10 +25,20 @@
   --basketdrop-grey: #D8F4ED;
   --secondary: #368F80;
 
+  --primary05a: rgba(53, 181, 224, 0.5);
+  --basketdrop-grey05a: rgba(216, 244, 237, 0.5);
+  --secondary05a: rgba(54, 143, 128, 0.5);
+
+  --primary02a: rgba(53, 181, 224, 0.2);
+  --basketdrop-grey02a: rgba(216, 244, 237, 0.2);
+  --secondary02a: rgba(54, 143, 128, 0.2);
+  
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   /* --primary-light: #03EFFD;
   --primary-classy-dark: #986298;
   --accent:  #726ECD; */
+
+
 }
 
 /* END COLOURS */
@@ -60,8 +70,10 @@ body, html {
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   width: 100%;
-  position: fixed;
+  position: sticky;
+  position: -webkit-sticky;
   top: 0px;
+  z-index: 100;
 }
 
 nav {
@@ -69,8 +81,6 @@ nav {
   justify-content: space-between;
   align-items: center;
   height: 80px;
-  width: 100%;
-  max-width: 1280px;
   margin: 0 auto 0 auto;
   padding: 0 1rem;
 }
@@ -87,7 +97,8 @@ nav .logo {
 }
 
 nav .logo:hover {
-
+  color: var(--secondary);
+  transition: 0.5s;
 }
 
 /* END NAVBAR */
@@ -95,6 +106,7 @@ nav .logo:hover {
 .logo-d-2 {
   text-decoration: underline;
 }
+
 /* BUTTONS */
 
 .button-action {
@@ -104,11 +116,11 @@ nav .logo:hover {
   margin: 0 0.2rem;
   padding: 0.2rem 1rem;
   background-color: transparent;
-  outline: solid var(--secondary);
-  border-radius: 15px;
+  outline: 1px solid var(--secondary);
+  border-radius: 4px;
   color: var(--secondary);
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 400;
   transition: 0.3s;
 }
 
@@ -117,3 +129,201 @@ nav .logo:hover {
 }
 
 /* END BUTTONS */
+
+
+/* MAIN BODY */
+
+.body-container {
+  margin: 2rem 2rem;
+}
+
+/* END MAIN BODY */
+
+/* SHOP LIST CARDS */
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-gap: 2rem;
+  /* justify-content: center; */
+  /* justify-items: center; */
+}
+
+.shop-card {
+  display: flex;
+  flex-direction: column;
+  background-size: cover;
+  background-color: var(--basketdrop-grey);
+  min-height: 20rem;
+  max-height: 20rem;
+  transition: 0.5s;
+  overflow: hidden;
+}
+
+.shop-card:hover,
+.shop-card.hover {
+  transform: scale(1.02);
+  box-shadow: 4px 4px 25px var(--secondary);
+}
+
+
+/* .shop-card:hover .shop-card-link {
+  display: flex;
+} */
+
+.shop-card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/* .shop-card-link {
+  display: none;
+  background-color: white;
+  color: black;
+  padding: 0.5rem;
+  margin: 0.25rem;
+  border-radius: 10px;
+} */
+
+.shop-card-title {
+  font-size: 2rem;
+  color: white;
+}
+
+.shop-card-description {
+  position: relative;
+  top: 16rem;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: var(--secondary02a);
+  margin: 0.6rem;
+  margin-top: auto;
+  max-height: fit-content;
+  padding: 0.6rem 0.6rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: 0.5s;
+  transition-delay: 0.5s;
+}
+
+.shop-card:hover .shop-card-description,
+.shop-card.hover .shop-card-description {
+  background-color: var(--secondary);
+  color: white;
+  top:0;
+  transition: 0.5s;
+}
+
+.shop-grid-example {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  margin: 2rem auto;
+}
+
+.shop-grid-example > .shop-grid {
+  display:grid;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)) !important;
+}
+
+/* END SHOP LIST CARDS */
+
+
+/* FORMS */
+.user-preferences {
+  max-width: 720px;
+  margin: 0 auto;
+}
+form h1 {
+  display: block;
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: 0.8rem;
+}
+
+fieldset {
+  border: medium none !important;
+  margin: 0 0 1rem;
+  min-width: 100%;
+  padding: 0;
+  width: 100%;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="number"],
+form input[type="password"],
+form textarea {
+  width: 100%;
+  border: 1px solid var(--primary05a);
+  background: #FFF;
+  margin: 0 0 0.2rem;
+  padding: 0.6rem;
+}
+
+form input[type="text"]:hover,
+form input[type="email"]:hover,
+form input[type="number"]:hover,
+form input[type="password"]:hover,
+form textarea:hover {
+  -webkit-transition: border-color 0.3s ease-in-out;
+  -moz-transition: border-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid var(--primary);
+}
+
+form textarea {
+  height: 6rem;
+  max-width: 100%;
+  resize: vertical;
+}
+
+form button[type="submit"] {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: var(--primary);
+  color: #FFF;
+  font-weight: 500;
+  margin: 0 auto 0.2rem;
+  padding: 0.6rem;
+  font-size: 1rem;
+}
+
+form button[type="submit"]:hover {
+  background: var(--secondary);
+  -webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+
+form button[type="submit"]:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+form input:focus,
+form textarea:focus {
+  outline: 0;
+  border: 1px solid var(--primary);
+  box-shadow: 0px 0px 5px var(--primary);
+}
+
+::-webkit-input-placeholder {
+  color: #888;
+}
+
+:-moz-placeholder {
+  color: #888;
+}
+
+::-moz-placeholder {
+  color: #888;
+}
+
+:-ms-input-placeholder {
+  color: #888;
+}
+/* END FORMS */

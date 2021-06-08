@@ -1,10 +1,11 @@
 {% extends "layouts/base.njk" %}
 {% block body %}
-{% include "flashes.njk" %}
+<div class="body-container">
 <div class="user-preferences">
+{% include "flashes.njk" %}
     <form action="/account" method="POST" enctype="multipart/form-data">
         <fieldset>
-            <legend>Update info</legend>
+            <h1>Address</h1>
             <label for="address">Address:</label>
             <input type="text" name="address" value="{{ user.address }}">
             <label for="postcode">Postcode:</label>
@@ -15,19 +16,50 @@
             {% else %}
             {% set checked = "" %}
             {% endif %}
+            <h1>Shop Details</h1>
             <input type="checkbox" name="shopShown" {{checked}}>
             <label for="shopShown">Show your shop?</label>
             <label for="shopName">Shop name</label>
-            <input type="text" name="shopName" value="{{ shop.name }}" minlength="2" required="true">
+            <input id="shopName" oninput="updateNames()" type="text" name="shopName" value="{{ shop.name }}" minlength="2" required="true">
             <label for="shopDescription">Shop description</label>
-            <textarea id="shopDescription" name="shopDescription" rows="7" cols="50" required="true">
+            <textarea id="shopDescription" oninput="updateDescs()" name="shopDescription" rows="7" cols="50" maxlength="160" required="true">
             {{- shop.description -}}
             </textarea>
             <label for="image">Upload your shop image here</label>
             <input type="file" name="image" accept="image/*">
             {% endif %}
-            <input type="submit" value="UPDATE">
+            <button type="submit" value="UPDATE">UPDATE</button>
         </fieldset>
     </form>
 </div>
+{% if user.type == 1 %}
+<div class="shop-grid-example">
+    <div class="shop-grid">
+        <div class="shop-card" style="background-image: linear-gradient(rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0) 50%), url('{{shop.imagefile}}')">
+            <div class="shop-card-header">
+                <h1 class="shop-card-title" id="shop-name1">{{ shop.name }}</h1>
+            </div>
+            <p class="shop-card-description" id="shop-desc1">{{ shop.description }}</p>
+        </div>
+        <div class="shop-card hover" style="background-image: linear-gradient(rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0) 50%), url('{{shop.imagefile}}')">
+            <div class="shop-card-header">
+                <h1 class="shop-card-title" id="shop-name2">{{ shop.name }}</h1>
+            </div>
+            <p class="shop-card-description" id="shop-desc2">{{ shop.description }}</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+</div>
+<script type="text/javascript">
+    function updateNames() {
+        $(".shop-card-title").text($("#shopName").val());
+    }
+    function updateDescs() {
+        $(".shop-card-description").text($("#shopDescription").val());
+    }
+</script>
+{% endblock %}
+
+{% block javascript %}
 {% endblock %}

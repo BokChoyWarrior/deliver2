@@ -9,6 +9,7 @@
     integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
     crossorigin="anonymous"></script>
     <script type="text/javascript" src="/javascripts/utils.js"></script>
+    {% block javascript %}{% endblock %}
     <!-- favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -44,9 +45,9 @@
         </nav>
       </div>
       {% endblock %}
-      {% block body %}{% endblock %}
+      
+      {%- block body %}{% endblock -%}
       {% block footer %}{% endblock %}
-      {% block javascript %}{% endblock %}
   </body>
 
 </html>
