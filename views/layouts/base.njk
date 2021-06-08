@@ -26,18 +26,14 @@
     {% block nav %}
       <div class="navbar-container">
         <nav>
-          <a class="logo" href="/">Deliver2</a>
+          <a class="logo" href="/"><span class="logo-d-2">d</span>eliver<span class="logo-d-2">2</span></a>
           <div class="navbar-actions">
             {% if user %}
               <p>{{ user.email }}</p>
               <div class="container-row center">
                 <a href="/users/logout" class="button-action">logout</a>
-                <a href="/account">
-                  <span class="material-icons">manage_accounts</span>
-                </a>
-                <a href="/users/basket">
-                  <span class="material-icons">shopping_cart</span>
-                </a>
+                <a href="/account"><span class="material-icons">manage_accounts</span></a>
+                <a href="/users/basket"><span class="material-icons">shopping_cart</span></a>
               </div>
             {% else %}
             <a class="button-action" href="/users/login">Login</a>
