@@ -1,4 +1,5 @@
-module.exports.convertPrice = function (price) {
+/* eslint-disable no-unused-vars */
+function convertPrice (price) {
   let sPrice = price.toString()
   const length = sPrice.length
 
