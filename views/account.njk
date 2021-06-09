@@ -1,7 +1,7 @@
 {% extends "layouts/base.njk" %}
 {% block body %}
 <div class="body-container">
-<div class="user-preferences">
+<div class="form-container">
 {% include "flashes.njk" %}
     <form action="/account" method="POST" enctype="multipart/form-data">
         <fieldset>
@@ -17,8 +17,10 @@
             {% set checked = "" %}
             {% endif %}
             <h1>Shop Details</h1>
-            <input type="checkbox" name="shopShown" {{checked}}>
-            <label for="shopShown">Show your shop?</label>
+            <div class="checkbox-and-label">
+                <label for="shopShown">Show your shop?</label>
+                <input type="checkbox" name="shopShown" {{checked}}>
+            </div>
             <label for="shopName">Shop name</label>
             <input id="shopName" oninput="updateNames()" type="text" name="shopName" value="{{ shop.name }}" minlength="2" required="true">
             <label for="shopDescription">Shop description</label>

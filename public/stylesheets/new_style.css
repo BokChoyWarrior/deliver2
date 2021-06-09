@@ -38,7 +38,7 @@
   --primary-classy-dark: #986298;
   --accent:  #726ECD; */
 
-
+  font-size: 16px !important;
 }
 
 /* END COLOURS */
@@ -70,6 +70,9 @@ body {
   flex-direction: column;
 }
 
+.material-icons {
+  font-size: 2rem;
+}
 /* END GLOBALS */
 
 /* NAVBAR */
@@ -114,6 +117,19 @@ nav .logoimage{
   float: left;
 }
 
+.navbar-tertiary {
+  display: flex;
+  align-items: center;
+}
+.navbar-tertiary > * {
+  display:inline;
+  margin: 0 0.5rem;
+}
+
+.navbar-email {
+  font-weight: 400;
+  font-size: 1.2rem;
+}
 /* END NAVBAR */
 
 /* FOOTER */
@@ -145,7 +161,6 @@ footer > * {
 .button-action {
   display: inline-flex;
   justify-content: center;
-  width: 7rem;
   margin: 0 0.2rem;
   padding: 0.2rem 1rem;
   background-color: transparent;
@@ -266,7 +281,7 @@ footer > * {
 
 
 /* FORMS */
-.user-preferences {
+.form-container {
   max-width: 720px;
   margin: 0 auto;
 }
@@ -283,6 +298,15 @@ fieldset {
   min-width: 100%;
   padding: 0;
   width: 100%;
+}
+
+form label {
+  display:block;
+  margin-top: 0.6rem;
+}
+
+.checkbox-and-label * {
+  display: inline;
 }
 
 form input[type="text"],
@@ -360,9 +384,9 @@ form textarea:focus {
   color: #888;
 }
 
+/* END FORMS */
+
 .footer{
   margin-top: auto;
   color: #888;
 }
-
-/* END FORMS */
