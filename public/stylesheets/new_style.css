@@ -24,20 +24,16 @@
   --primary: #35B6E0;
   --basketdrop-grey: #D8F4ED;
   --secondary: #368F80;
-
   --primary05a: rgba(53, 181, 224, 0.5);
   --basketdrop-grey05a: rgba(216, 244, 237, 0.5);
   --secondary05a: rgba(54, 143, 128, 0.5);
-
   --primary02a: rgba(53, 181, 224, 0.2);
   --basketdrop-grey02a: rgba(216, 244, 237, 0.2);
   --secondary02a: rgba(54, 143, 128, 0.2);
-  
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   /* --primary-light: #03EFFD;
   --primary-classy-dark: #986298;
   --accent:  #726ECD; */
-
   font-size: 16px !important;
 }
 
@@ -63,16 +59,30 @@ html {
 body {
   color: var(--primary);
   line-height: 1.5;
-  height: 100vh; 
+  height: 100vh;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
 }
 
+hr {
+  color: var(--primary);
+  height: 1px;
+  background-color: var(--primary05a);
+  outline: none;
+  border: none;
+}
+
 .material-icons {
   font-size: 2rem;
 }
+
+.container {
+  padding: 0.6rem 0.6rem;
+  margin: 0.5rem 0.5rem;
+}
+
 /* END GLOBALS */
 
 /* NAVBAR */
@@ -116,8 +126,9 @@ nav .logo:hover {
   display: flex;
   align-items: center;
 }
-.navbar-tertiary > * {
-  display:inline;
+
+.navbar-tertiary>* {
+  display: inline;
   margin: 0 0.5rem;
 }
 
@@ -125,22 +136,22 @@ nav .logo:hover {
   font-weight: 400;
   font-size: 1.2rem;
 }
+
 /* END NAVBAR */
 
 /* FOOTER */
 
 footer {
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, .2);
-  min-height: 50px; 
+  min-height: 50px;
   background: rgb(255, 255, 255);
   margin-top: auto;
   z-index: 1000;
   display: flex;
   justify-content: center;
-
 }
 
-footer > * {
+footer>* {
   margin: 1rem;
 }
 
@@ -172,11 +183,12 @@ footer > * {
 
 /* END BUTTONS */
 
-
 /* MAIN BODY */
 
 .body-container {
+  display: flex;
   margin: 2rem 2rem;
+  flex-direction: row;
 }
 
 /* END MAIN BODY */
@@ -202,12 +214,10 @@ footer > * {
   overflow: hidden;
 }
 
-.shop-card:hover,
-.shop-card.hover {
+.shop-card:hover, .shop-card.hover {
   transform: scale(1.02);
   box-shadow: 4px 4px 25px var(--secondary);
 }
-
 
 /* .shop-card:hover .shop-card-link {
   display: flex;
@@ -250,11 +260,10 @@ footer > * {
   transition-delay: 0.5s;
 }
 
-.shop-card:hover .shop-card-description,
-.shop-card.hover .shop-card-description {
+.shop-card:hover .shop-card-description, .shop-card.hover .shop-card-description {
   background-color: var(--secondary);
   color: white;
-  top:0;
+  top: 0;
   transition: 0.5s;
 }
 
@@ -265,20 +274,21 @@ footer > * {
   margin: 2rem auto;
 }
 
-.shop-grid-example > .shop-grid {
-  display:grid;
+.shop-grid-example>.shop-grid {
+  display: grid;
   grid-gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)) !important;
 }
 
 /* END SHOP LIST CARDS */
 
-
 /* FORMS */
+
 .form-container {
   max-width: 720px;
   margin: 0 auto;
 }
+
 form h1 {
   display: block;
   font-size: 2rem;
@@ -295,7 +305,7 @@ fieldset {
 }
 
 form label {
-  display:block;
+  display: block;
   margin-top: 0.6rem;
 }
 
@@ -303,11 +313,7 @@ form label {
   display: inline;
 }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="number"],
-form input[type="password"],
-form textarea {
+form input[type="text"], form input[type="email"], form input[type="number"], form input[type="password"], form textarea {
   width: 100%;
   border: 1px solid var(--primary05a);
   background: #FFF;
@@ -315,11 +321,7 @@ form textarea {
   padding: 0.6rem;
 }
 
-form input[type="text"]:hover,
-form input[type="email"]:hover,
-form input[type="number"]:hover,
-form input[type="password"]:hover,
-form textarea:hover {
+form input[type="text"]:hover, form input[type="email"]:hover, form input[type="number"]:hover, form input[type="password"]:hover, form textarea:hover {
   -webkit-transition: border-color 0.3s ease-in-out;
   -moz-transition: border-color 0.3s ease-in-out;
   transition: border-color 0.3s ease-in-out;
@@ -355,8 +357,7 @@ form button[type="submit"]:active {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-form input:focus,
-form textarea:focus {
+form input:focus, form textarea:focus {
   outline: 0;
   border: 1px solid var(--primary);
   box-shadow: 0px 0px 5px var(--primary);
@@ -380,7 +381,71 @@ form textarea:focus {
 
 /* END FORMS */
 
-.footer{
+/* FOOTER */
+
+.footer {
   margin-top: auto;
   color: #888;
 }
+
+/* END FOOTER */
+
+/* SHOP PAGE */
+
+.shop-container {
+  display: grid;
+  grid-template-columns: 1.61fr 1fr;
+}
+
+.shop-container>* {
+  padding: 0.6rem 0.6rem;
+  margin: 0.5rem 0.5rem;
+}
+
+.shop-header {
+  display: grid;
+  height: 200px;
+  border: solid black;
+  grid-template-columns: 1.61fr 1fr;
+  height: auto;
+}
+
+.shop-header>* {
+  margin: 0.5rem 0.5rem;
+}
+
+.shop-description {
+  padding: 0 1rem;
+}
+
+.shop-image {
+  max-width: 90%;
+  justify-self: center;
+  align-self: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px var(--primary);
+}
+
+.shop-header .shop-image img {
+  width: 150px;
+}
+
+.shop-items {
+  border: solid green;
+}
+
+.shop-basket {
+  border: solid red;
+}
+
+.items {
+  border: solid orange;
+}
+
+/*
+  media queries:
+  once the vw below 1280, hide images,
+  once below 720, hide basket
+*/
+
+/* END SHOP PAGE */
