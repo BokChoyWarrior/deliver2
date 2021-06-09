@@ -1,18 +1,20 @@
 {% extends "layouts/base.njk" %}
 {% block body %}
-    <div class="login-container">
+<div class="body-container">
+    <div class="form-container">
         {% if user %}
             <p>You are already logged in as {{ user.email }}</p>
             <p>please logout before trying to login as someone else.</p>
             <a href="/users/logout">logout</a>
         {% endif %}
-        <form class="login-form" method="POST" action="/users/login">
+        <form method="POST" action="/users/login">
             <fieldset>
-                <legend>Login</legend>
+                <h1>Login</h1>
                 <input type="text" placeholder="email" name="email">
                 <input type="password" placeholder="password" name="password">
-                <input type="submit" value="login">
+                <button type="submit">Log in</button>
             </fieldset>
         </form>
     </div>
+</div>
 {% endblock %}

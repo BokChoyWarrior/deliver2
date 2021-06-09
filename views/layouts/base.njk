@@ -25,22 +25,24 @@
   <body>
     {% block nav %}
       <div class="navbar-container">
-        <nav>
+        <nav class="navbar-primary">
+        <div class="navbar-secondary">
           <a class="logo" href="/"><span class="logo-d-2">d</span>eliver<span class="logo-d-2">2</span></a>
-          <div class="navbar-actions">
-            {% if user %}
-              <p>{{ user.email }}</p>
-              <div class="container-row center">
-                <a href="/users/logout" class="button-action">logout</a>
-                <a href="/account"><span class="material-icons">manage_accounts</span></a>
-                <a href="/users/basket"><span class="material-icons">shopping_cart</span></a>
-              </div>
-            {% else %}
-            <a class="button-action" href="/users/login">Login</a>
-            <a class="button-action" href="/users/register">Register</a>
-
-            {% endif %}
+        </div>
+        <div class="navbar-secondary">
+          {% if user %}
+            <div class="navbar-tertiary">
+              <div class="navbar-email"><a href="/account">{{ user.email }}</a></div>
+              <a href="/account" class="button-action"><span class="material-icons">manage_accounts</span></a>
+              <a href="/users/basket" class="button-action"><span class="material-icons">shopping_cart</span></a>
+              <a href="/users/logout" class="button-action">Logout</a>
             </div>
+          {% else %}
+          <a class="button-action" href="/users/login">Login</a>
+          <a class="button-action" href="/users/register">Register</a>
+
+          {% endif %}
+          </div>
         </nav>
       </div>
       {% endblock %}

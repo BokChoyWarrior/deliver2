@@ -42,7 +42,7 @@ router.post('/register', async (req, res, next) => {
     })
     .then(() => {
       if (flashes.length > 0) {
-        res.render('adduser', { flashes: flashes })
+        res.render('register', { flashes: flashes })
       }
     })
     .then(async () => {
@@ -78,12 +78,12 @@ router.post('/register', async (req, res, next) => {
 })
 
 router.get('/login', (req, res) => {
-  res.render('logintesting', { user: req.user })
+  res.render('login', { user: req.user })
 })
 
 router.get('/register', (req, res) => {
   console.log('got request')
-  res.render('adduser')
+  res.render('register')
 })
 
 router.post('/login', (req, res, next) => {

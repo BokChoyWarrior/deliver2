@@ -1,0 +1,24 @@
+{% extends "layouts/base.njk" %}
+{% block body %}
+<div class="body-container">
+    <div class="form-container">
+    {% include "flashes.njk" %}
+        <form action="/users/register" method="POST">
+            <fieldset>
+                <h1>Register</h1>
+                <input type="text" name="email" placeholder="email" minlength="1">
+                <input type="password" name="password" placeholder="password" minlength="8">
+                <div class="checkbox-and-label">
+                    <label for="userType">Check if you are a shop</label>
+                    <input type="checkbox" name="userType">
+                </div>
+                <button type="submit">Register</button>
+            </fieldset>
+        </form>
+        <h2>Already have an account?</h2>
+        <button><a href="/users/login">Login</a></button>
+    </div>
+</div>
+{% endblock %}
+
+
