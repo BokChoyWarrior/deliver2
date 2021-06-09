@@ -26,7 +26,8 @@
     {% block nav %}
       <div class="navbar-container">
         <nav>
-          <a class="logo" href="/"><span class="logo-d-2">d</span>eliver<span class="logo-d-2">2</span></a>
+          {# <a class="logo" href="/"><span class="logo-d-2">d</span>eliver<span class="logo-d-2">2</span></a> #}
+          <a href="/"><img class="logoimage" src="/logo/deliver2logo1.png"></a>
           <div class="navbar-actions">
             {% if user %}
               <p>{{ user.email }}</p>
@@ -50,10 +51,13 @@
       <div class="footer-primary">
           <div class="footer-secondary">
               <a>Contact Us</a>
-              <a>Contact Us</a>
+              <a>About</a>
+              <a>Help</A>
           </div>
           <div class="footer-secondary">
-              <a>Alcohol Policy<span class="material-icons">liquor</span></a>
+              <a href="/birds">Terms and Conditions</a>
+              <a href="/birds">Privacy</a>
+              <a href="/birds">Alcohol Policy</a>
           </div>
       </footer>
       {% endblock %}
