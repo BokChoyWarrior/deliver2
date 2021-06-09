@@ -122,6 +122,11 @@ nav .logo:hover {
   transition: 0.5s;
 }
 
+nav .logoimage{
+  height: 75px;
+  float: left;
+}
+
 .navbar-tertiary {
   display: flex;
   align-items: center;
@@ -154,6 +159,7 @@ footer {
 footer>* {
   margin: 1rem;
 }
+
 
 /* END FOOTER */
 
