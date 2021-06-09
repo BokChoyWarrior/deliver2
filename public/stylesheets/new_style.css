@@ -54,12 +54,20 @@ a {
   color: var(--secondary);
 }
 
-body, html {
-  color: var(--primary);
-  line-height: 1.5;
+html {
   padding: 0;
   margin: 0;
   min-height: 100% !important;
+}
+
+body {
+  color: var(--primary);
+  line-height: 1.5;
+  height: 100vh; 
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /* END GLOBALS */
@@ -102,6 +110,25 @@ nav .logo:hover {
 }
 
 /* END NAVBAR */
+
+/* FOOTER */
+
+footer {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, .2);
+  min-height: 50px; 
+  background: rgb(255, 255, 255);
+  margin-top: auto;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+
+}
+
+footer > * {
+  margin: 1rem;
+}
+
+/* END FOOTER */
 
 .logo-d-2 {
   text-decoration: underline;
@@ -326,4 +353,10 @@ form textarea:focus {
 :-ms-input-placeholder {
   color: #888;
 }
+
+.footer{
+  margin-top: auto;
+  color: #888;
+}
+
 /* END FORMS */
