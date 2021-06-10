@@ -24,7 +24,7 @@ router.get('/:id', ensureAuthenticated, async (req, res) => {
   const items = await Items.find({ shop: shopId })
   const basket = await findOrCreateShopBasket(req.user, shopId)
   // console.log(basket, '<== basket! ======', items, '<== items!')
-  console.log(basket);
+  console.log(basket)
   Shops.findOne({ _id: shopId }).then(data => {
     res.render('shop', { shop: data, items: items, user: req.user, basket: basket })
   }).catch(err => { console.log(err); res.status(500) })

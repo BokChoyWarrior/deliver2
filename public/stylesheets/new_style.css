@@ -420,6 +420,10 @@ form input:focus, form textarea:focus {
   margin: 0.5rem 0.5rem;
 }
 
+.shop-name {
+  margin: 0.6rem 0;
+}
+
 .shop-description {
   padding: 0 1rem;
 }
