@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon -e html,js,njk ./bin/www",
+    "dev": "nodemon -e html,js,njk ./bin/www --trace-warnings",
     "test-init": "./node_modules/jasmine/bin/jasmine.js init",
     "test": "jasmine"
   },
