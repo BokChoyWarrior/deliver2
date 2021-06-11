@@ -78,6 +78,10 @@ router.post('/register', async (req, res, next) => {
 })
 
 router.get('/login', (req, res) => {
+  if (req.user) {
+    res.redirect('/')
+    return
+  }
   res.render('login', { user: req.user })
 })
 

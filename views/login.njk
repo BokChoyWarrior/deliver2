@@ -2,11 +2,6 @@
 {% block body %}
 <div class="body-container">
     <div class="form-container">
-        {% if user %}
-            <p>You are already logged in as {{ user.email }}</p>
-            <p>please logout before trying to login as someone else.</p>
-            <a href="/users/logout">logout</a>
-        {% endif %}
         <form method="POST" action="/users/login">
             <fieldset>
                 <h1>Login</h1>
