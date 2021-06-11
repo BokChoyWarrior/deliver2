@@ -6,10 +6,14 @@
     <form action="/account" method="POST" enctype="multipart/form-data">
         <fieldset>
             <h1>Address</h1>
-            <label for="address">Address:</label>
-            <input type="text" name="address" value="{{ user.address }}">
-            <label for="postcode">Postcode:</label>
-            <input type="text" name="postcode" value="{{ user.postcode }}">
+            <div class="input-and-label">
+                <label for="address">Address:</label>
+                <input type="text" name="address" id="address" value="{{ user.address }}">
+            </div>
+            <div class="input-and-label">
+                <label for="postcode">Postcode:</label>
+                <input type="text" name="postcode" id="postcode" value="{{ user.postcode }}">
+            </div>
             {% if user.type == 1 %}
             {% if shop.shown %}
             {% set checked = "checked" %}
@@ -18,17 +22,23 @@
             {% endif %}
             <h1>Shop Details</h1>
             <div class="checkbox-and-label">
+                <input type="checkbox" name="shopShown" id="shopShown" {{checked}}>
                 <label for="shopShown">Show your shop?</label>
-                <input type="checkbox" name="shopShown" {{checked}}>
             </div>
-            <label for="shopName">Shop name</label>
-            <input id="shopName" oninput="updateNames()" type="text" name="shopName" value="{{ shop.name }}" minlength="2" required="true">
-            <label for="shopDescription">Shop description</label>
-            <textarea id="shopDescription" oninput="updateDescs()" name="shopDescription" rows="7" cols="50" maxlength="160" required="true">
-            {{- shop.description -}}
-            </textarea>
-            <label for="image">Upload your shop image here</label>
-            <input type="file" name="image" accept="image/*">
+            <div class="input-and-label">
+                <label for="shopName">Shop name</label>
+                <input id="shopName" oninput="updateNames()" type="text" name="shopName" value="{{ shop.name }}" minlength="2" required="true">
+            </div>
+            <div class="input-and-label">
+                <label for="shopDescription">Shop description</label>
+                <textarea id="shopDescription" oninput="updateDescs()" name="shopDescription" rows="7" cols="50" maxlength="160" required="true">
+                {{- shop.description -}}
+                </textarea>
+            </div>
+            <div class="input-and-label">
+                <label for="image">Upload your shop image here</label>
+                <input type="file" name="image" id="image" accept="image/*">
+            </div>
             {% endif %}
             <button type="submit" value="UPDATE">UPDATE</button>
         </fieldset>

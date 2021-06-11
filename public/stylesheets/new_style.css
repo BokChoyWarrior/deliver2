@@ -115,6 +115,7 @@ nav .logo {
   color: white;
   font-size: 2.2rem;
   font-weight: 600;
+  transition: 0.5s;
 }
 
 nav .logo:hover {
@@ -185,6 +186,7 @@ footer>* {
 
 .button-action:hover {
   background-color: var(--basketdrop-grey);
+  transition: 0.3s;
 }
 
 /* END BUTTONS */
@@ -193,7 +195,7 @@ footer>* {
 
 .body-container {
   display: flex;
-  margin: 2rem 2rem;
+  margin: 1rem 1rem;
   flex-direction: row;
 }
 
@@ -222,6 +224,7 @@ footer>* {
 
 .shop-card:hover, .shop-card.hover {
   transform: scale(1.02);
+  transition: 0.5s;
   box-shadow: 4px 4px 25px var(--secondary);
 }
 
@@ -278,6 +281,7 @@ footer>* {
   justify-content: center;
   justify-items: center;
   margin: 2rem auto;
+  padding: 0 2rem;
 }
 
 .shop-grid-example>.shop-grid {
@@ -291,7 +295,10 @@ footer>* {
 /* FORMS */
 
 .form-container {
-  max-width: 720px;
+  display: flex;
+  justify-content: center;
+  flex: 1 0 100%;
+  max-width: 480px;
   margin: 0 auto;
 }
 
@@ -310,13 +317,28 @@ fieldset {
   width: 100%;
 }
 
-form label {
-  display: block;
-  margin-top: 0.6rem;
+form {
+  width: 100%;
 }
 
-.checkbox-and-label * {
-  display: inline;
+form label {
+  display: block;
+}
+
+.checkbox-and-label {
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid var(--primary05a); */
+  justify-content: center;
+  align-items: center;
+  margin: 0.4rem 0 0.4rem 0;
+}
+
+
+.input-and-label {
+  display: flex;
+  flex-direction: column;
+  margin: 0.4rem 0 0.4rem 0;
 }
 
 form input[type="text"], form input[type="email"], form input[type="number"], form input[type="password"], form textarea {
@@ -325,6 +347,7 @@ form input[type="text"], form input[type="email"], form input[type="number"], fo
   background: #FFF;
   margin: 0 0 0.2rem;
   padding: 0.6rem;
+  transition: 0.3s;
 }
 
 form input[type="text"]:hover, form input[type="email"]:hover, form input[type="number"]:hover, form input[type="password"]:hover, form textarea:hover {
@@ -334,6 +357,17 @@ form input[type="text"]:hover, form input[type="email"]:hover, form input[type="
   border: 1px solid var(--primary);
 }
 
+form input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  margin: 6px 6px;
+
+}
+.checkbox-and-label label {
+  line-height: 24px;
+  font-weight: 600;
+}
+
 form textarea {
   height: 6rem;
   max-width: 100%;
@@ -341,15 +375,19 @@ form textarea {
 }
 
 form button[type="submit"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   width: 100%;
   border: none;
   background: var(--primary);
   color: #FFF;
   font-weight: 500;
+  font-size: 1rem;
   margin: 0 auto 0.2rem;
   padding: 0.6rem;
-  font-size: 1rem;
+  transition: 0.3s;
 }
 
 form button[type="submit"]:hover {
