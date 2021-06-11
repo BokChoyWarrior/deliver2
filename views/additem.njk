@@ -1,15 +1,25 @@
 {% extends "layouts/base.njk" %}
 {% block body %}
-<div class="login-container">
-    <h1>Add items and see the descriptions!</h1>
-    <form action="/addItem" method="POST">
-        <fieldset>
-             <legend>Add Items</legend>
-            <input type="text" name="item" placeholder="item">
-            <textarea name="itemdescription" placeholder="itemdescription"></textarea>
-            <input type="price" name="price" placeholder="price">
-            <input type="submit" value="Find"> 
-        </fieldset>
-    </form>
+<div class="body-container">
+    {% include "flashes.njk" %}
+    <div class="form-container">
+        <form action="/addItem" method="POST">
+            <fieldset>
+                <h1>Add items to your shop</h1>
+                <div class="input-and-label">
+                    <label for="itemName">Name</label>
+                    <input type="text" id="itemName" name="itemName" placeholder="Name">
+                </div>
+                <div class="input-and-label">
+                    <label for="itemDescription">Description</label>
+                    <textarea name="itemDescription" maxlength="100"></textarea>
+                </div>
+                <div class="input-and-label">
+                    <input type="number" name="price" placeholder="price">
+                </div>
+                <button type="submit">Add item</button>
+            </fieldset>
+        </form>
+</div>
 </div>
 {% endblock %}
