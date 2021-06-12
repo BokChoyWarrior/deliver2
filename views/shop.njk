@@ -2,36 +2,38 @@
 {% block body %}
 <div class="body-container">
     <div class="shop-container">
-        <div class="main-shop">
-            <main class="shop-header">
-                <div class="shop-description">
-                    <h2 class="shop-name">{{shop.name}}</h2>
-                    <hr>
-                    <p>Description</p>
-                    <hr>
-                    <p>details</p>
-                </div>
-                <img class="shop-image" src="{{shop.imagefile}}" alt="shop image">
-            </main>
-            <div class="items">
-                <div class="shop-item">Test item</div>
-                <div class="shop-item"> Test item 2</div>
-                {# {% for item in items %}
-                    <div class="item-card">
-                        <h1>{{item.name}}</h1>
-                        <p>{{ convertPrice(item.price) }}</p>
-                        <div class="item-card-controls">
-                            {% set quantity = quantityInBasket(basket, item._id) %}
-                            <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1, '{{ shop._id }}')">
-                                <span class="material-icons">add</span></h1>
-                            {% if quantity %}
-                                <p id="item{{ item._id }}">{{ quantity }}</p>
-                                <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', -1, '{{ shop._id }}')" style="background-color: crimson;">
-                                    <span class="material-icons">remove</span></h1>
-                            {% endif %}
-                        </div>
+        <div class="container">
+            <div class="main-shop">
+                <main class="shop-header">
+                    <div class="shop-description">
+                        <h2 class="shop-name">{{shop.name}}</h2>
+                        <hr>
+                        <p>Description</p>
+                        <hr>
+                        <p>details</p>
                     </div>
-                {% endfor %} #}
+                    <img class="shop-image" src="{{shop.imagefile}}" alt="shop image">
+                </main>
+                <div class="items">
+                    <div class="shop-item">Test item</div>
+                    <div class="shop-item"> Test item 2</div>
+                    {# {% for item in items %}
+                        <div class="item-card">
+                            <h1>{{item.name}}</h1>
+                            <p>{{ convertPrice(item.price) }}</p>
+                            <div class="item-card-controls">
+                                {% set quantity = quantityInBasket(basket, item._id) %}
+                                <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1, '{{ shop._id }}')">
+                                    <span class="material-icons">add</span></h1>
+                                {% if quantity %}
+                                    <p id="item{{ item._id }}">{{ quantity }}</p>
+                                    <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', -1, '{{ shop._id }}')" style="background-color: crimson;">
+                                        <span class="material-icons">remove</span></h1>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %} #}
+                </div>
             </div>
         </div>
         <div class="container">
