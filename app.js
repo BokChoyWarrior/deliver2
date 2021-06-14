@@ -44,7 +44,7 @@ const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const itemsRouter = require('./routes/items')
 const shopsRouter = require('./routes/shops')
-const addItemRouter = require('./routes/addItem')
+const accountRouter = require('./routes/account')
 
 const apiRouter = require('./routes/api')
 
@@ -97,7 +97,7 @@ app.use('/users', usersRouter)
 app.use('/items', itemsRouter)
 app.use('/shops', shopsRouter)
 app.use('/birds', birdsRouter)
-app.use('/addItem', addItemRouter)
+app.use('/account', accountRouter)
 
 app.use('/api', apiRouter)
 

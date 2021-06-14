@@ -1,0 +1,36 @@
+{% extends "layouts/base.njk" %}
+{% block body %}
+<div class="body-container">
+<div class="form-container">
+{% include "flashes.njk" %}
+    <form>
+        <fieldset>
+            <h1>Manage your account</h1>
+            <a href="/account/settings" class="button-action">Basic Settings</a>
+            {% if user.type == 1 %}
+            <a href="/account/inventory" class="button-action">Shop Inventory</a>
+            <a href=""></a>
+            {% endif %}
+        </fieldset>
+    </form>
+</div>
+{% if user.type == 1 %}
+<div class="shop-grid-example">
+    <div class="shop-grid">
+        <div class="shop-card" style="background-image: linear-gradient(rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0) 50%), url('{{shop.imagefile}}')">
+            <div class="shop-card-header">
+                <h1 class="shop-card-title" id="shop-name1">{{ shop.name }}</h1>
+            </div>
+            <p class="shop-card-description" id="shop-desc1">{{ shop.description }}</p>
+        </div>
+        <div class="shop-card hover" style="background-image: linear-gradient(rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0) 50%), url('{{shop.imagefile}}')">
+            <div class="shop-card-header">
+                <h1 class="shop-card-title" id="shop-name2">{{ shop.name }}</h1>
+            </div>
+            <p class="shop-card-description" id="shop-desc2">{{ shop.description }}</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+</div>
+{% endblock %}
