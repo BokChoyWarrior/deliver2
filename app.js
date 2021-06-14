@@ -11,6 +11,35 @@ require('./strategies/users')(passport) // if you want to know how our local str
 const nunjucks = require('nunjucks')
 mongoose.set('debug', true)
 
+let verifyEnvVars;
+// eslint-disable-next-line no-unused-vars
+(verifyEnvVars = () => {
+  const envVars = [
+    'DB_URL',
+    'CLOUDINARY_NAME',
+    'CLOUDINARY_API_KEY',
+    'CLOUDINARY_API_SECRET'
+  ]
+  const notFoundVars = []
+  for (const index in envVars) {
+    const envVar = envVars[index]
+    if (!process.env[envVar]) {
+      notFoundVars.push(envVar)
+    }
+  }
+  if (notFoundVars.length > 0) {
+    console.error(`
+🛑 Error: Could not find the following environment variables
+🛑 =========================================================
+\x1b[31m
+🛑 ${notFoundVars.join('\n🛑 ')}
+\x1b[0m
+🛑 Please request them from another member of the team.
+    `)
+    process.exit(1)
+  }
+})()
+
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const itemsRouter = require('./routes/items')
