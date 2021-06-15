@@ -4,7 +4,7 @@ ShopCategories.find({}).then((res, _err) => { currentShopCategories = res })
 
 module.exports = async function (req, res, next) {
   // console.log(req.shop)
-  if (req.user.type === 1) {
+  if (typeof req.shop !== 'undefined') {
     const newShopCategories = []
     for (const category in currentShopCategories) {
       let shown = false
