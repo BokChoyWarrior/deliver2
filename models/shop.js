@@ -6,7 +6,7 @@ const shopSchema = new Schema({
   description: { type: String, default: 'Shop description here' },
   shown: { type: Boolean, default: false },
   imagefile: { type: String, default: 'shop-card-images/default.jpg' },
-  categories: [{ category: { type: String, ref: 'ShopCategory' } }]
+  categories: [{ type: String, ref: 'ShopCategory' }]
 }, { timestamps: true })
 
 module.exports = mongoose.model('Shop', shopSchema)

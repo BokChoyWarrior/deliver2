@@ -9,8 +9,12 @@ const saltRounds = 10
 const emailRegex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
   res.send('respond with a resource')
+})
+
+router.get('/register', async (req, res) => {
+  res.render('register')
 })
 
 router.post('/register', async (req, res, next) => {
@@ -83,11 +87,6 @@ router.get('/login', (req, res) => {
     return
   }
   res.render('login', { user: req.user })
-})
-
-router.get('/register', (req, res) => {
-  console.log('got request')
-  res.render('register')
 })
 
 router.post('/login', (req, res, next) => {

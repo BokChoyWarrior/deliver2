@@ -3,6 +3,7 @@ const router = express.Router()
 const Shop = require('../models/shop')
 const User = require('../models/user')
 const Items = require('../models/items')
+const ShopCategories = require('../models/meta/shopCategory')
 const { ensureAuthenticated } = require('../strategies/auth')
 const { postcodeValidator } = require('postcode-validator')
 const { isEqual } = require('lodash')
@@ -39,8 +40,7 @@ router.route('/settings', ensureAuthenticated)
     if (!newUser) { res.status(500); return }
 
     // handle user input...
-    const { postcode, address, shopName, shopDescription, shopShown } = req.body
-
+    const { postcode, address, shopName, shopDescription, shopShown, shopCategories } = req.body
     // for all users including shops
     // Postcode should be checked ideally clientside...
     if (postcode !== oldUser.postcode) {
@@ -74,7 +74,22 @@ router.route('/settings', ensureAuthenticated)
 
         shop.description = shopDescription
 
-        console.log('file:::::', req.file)
+        const realCategories = []
+        const promises = []
+        for await (const category of [].concat(shopCategories)) {
+          promises.push(
+            ShopCategories.findById(category)
+              .then((res, _err) => { if (res) { realCategories.push(category) } })
+              .catch((_err) => {}))
+        }
+
+        await Promise.all(promises)
+          .then(() => {
+            shop.categories = []
+            shop.categories = realCategories
+          })
+          .catch((_err) => {})
+
         if (req.file !== undefined) {
           await cloudinary.uploader.upload(req.file.path,
             {
@@ -84,6 +99,7 @@ router.route('/settings', ensureAuthenticated)
             },
             function (_error, result) { shop.imagefile = result.url })
         }
+        console.log('saving shop!')
         shop.save()
           .then(successMsg = 'Successfully updated details')
           .catch(_err => flashes.push({ type: 'error', msg: 'Something went wrong while updating your shop. Please try again' }))
@@ -94,7 +110,7 @@ router.route('/settings', ensureAuthenticated)
       flashes.push({ type: 'success', msg: successMsg })
     }
 
-    res.render('account', { user: newUser, shop: shop, flashes: flashes })
+    res.render('account/settings', { user: newUser, shop: shop, flashes: flashes }) // TODO: Redirect with flashes rather than render.
   })
 
 router.route('/inventory', ensureAuthenticated)
