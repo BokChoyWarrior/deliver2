@@ -110,7 +110,8 @@ router.route('/settings', ensureAuthenticated)
       flashes.push({ type: 'success', msg: successMsg })
     }
 
-    res.render('account/settings', { user: newUser, shop: shop, flashes: flashes }) // TODO: Redirect with flashes rather than render.
+    res.redirect('/account/settings')
+    // res.render('account/settings', { user: newUser, shop: shop, flashes: flashes }) // TODO: Redirect with flashes rather than render.
   })
 
 router.route('/inventory', ensureAuthenticated)
