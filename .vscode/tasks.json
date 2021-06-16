@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"problemMatcher": [],
+			"label": "npm: dev",
+			"detail": "nodemon -e html,js,njk ./bin/www --trace-warnings",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "shell",
+			"label": "React development - windows",
+			"detail": "Leave this task running developing react components",
+			"command": "npx babel --watch ./react_components_DEV --out-dir ./public/react_components --presets react-app/prod",
+			"problemMatcher": []
+		}
+	]
+}
