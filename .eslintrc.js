@@ -13,5 +13,10 @@ module.exports = {
   },
   rules: {
     eqeqeq: 'warn'
+  },
+  globals: {
+    React: true,
+    ReactDOM: true,
+    JSX: true
   }
 }

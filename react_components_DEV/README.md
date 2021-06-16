@@ -1,0 +1,2 @@
+While you are developing react components, you should run the appropriate task. Press Ctrl+Shift+P, type "task", select "Run Task", and select the react development task.
+Leave the task running while you develop so that the javascript will be available in the 'public/' folder
