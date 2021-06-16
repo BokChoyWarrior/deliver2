@@ -4,6 +4,7 @@ const session = require('express-session') // express sessions middleware (docum
 const MongoStore = require('connect-mongo') // this will allow us to use mongodb to store our sessions.
 const path = require('path')
 const cookieParser = require('cookie-parser')
+const flash = require('connect-flash');
 const logger = require('morgan')
 const mongoose = require('mongoose')
 const passport = require('passport') // passport is our authentication middleware, we can configure this to allow login via google, facebook, etc... for now we'll just be using our own local authentication strategy.
@@ -64,6 +65,13 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(flash());
+
+//middleware for toast messages
+app.use(function(req, res, next){
+  res.locals.toastAuto = req.flash('toastAuto');
+  next();
+});
 
 mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,

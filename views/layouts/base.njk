@@ -45,9 +45,15 @@
           </div>
         </nav>
       </div>
-      {% endblock %}
-      {% block body %}{% endblock %}
-      {% block footer %}
+    {% endblock %}
+        {% if toastAuto %}
+          <!-- req.flash('toastAuto', "toast message goes here") -->
+          {% for toast in toastAuto %}
+            <p class="toast-auto">{{toast}}</p>
+          {% endfor %}
+        {% endif %}
+    {% block body %}{% endblock %}
+    {% block footer %}
       <footer>
       <div class="footer-primary">
           <div class="footer-secondary">

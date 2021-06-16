@@ -130,12 +130,14 @@ router.route('/inventory', ensureAuthenticated)
 
     const { itemName, itemDescription, price } = req.body
     const item = new Items({
+      shop: req.shop._id,
       name: itemName,
       description: itemDescription,
       price: price
     })
-    console.log(item)
-
+    item.save();
+    req.flash('toastAuto', "Item Added");
+    res.redirect('/account/inventory')
   // item.save()
   // redirect user to add another, or actually accept the item via react/jquery?
   })

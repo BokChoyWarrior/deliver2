@@ -499,3 +499,54 @@ form input:focus, form textarea:focus {
 */
 
 /* END SHOP PAGE */
+
+/* Toast */
+.toast{
+  visibility: hidden;
+  position: fixed;
+  top: 10rem;
+  right: 5rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.toast-auto{
+  position: fixed;
+  top: 10rem;
+  right: 5rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  -webkit-animation: toast-in 0.5s, toast-out 0.5s 2.5s;
+  animation: toast-in 0.5s, toast-out 0.5s 2.5s forwards;
+}
+
+.toast.show{
+  visibility: visible;
+  -webkit-animation: toast-in 0.5s, toast-out 0.5s 2.5s;
+  animation: toast-in 0.5s, toast-out 0.5s 2.5s;
+}
+
+@keyframes toast-in {
+  from{top: 10rem; right: 0; opacity: 0;}
+  to{top: 10rem; right: 5rem; opacity: 1;}
+}
+@keyframes toast-out {
+  from{top: 10rem; right: 5rem; opacity: 1;}
+  to{top: 10rem; right: 0; opacity: 0;}
+}
