@@ -11,11 +11,40 @@ require('./strategies/users')(passport) // if you want to know how our local str
 const nunjucks = require('nunjucks')
 mongoose.set('debug', true)
 
+let verifyEnvVars;
+// eslint-disable-next-line no-unused-vars
+(verifyEnvVars = () => {
+  const envVars = [
+    'DB_URL',
+    'CLOUDINARY_NAME',
+    'CLOUDINARY_API_KEY',
+    'CLOUDINARY_API_SECRET'
+  ]
+  const notFoundVars = []
+  for (const index in envVars) {
+    const envVar = envVars[index]
+    if (!process.env[envVar]) {
+      notFoundVars.push(envVar)
+    }
+  }
+  if (notFoundVars.length > 0) {
+    console.error(`
+🛑 Error: Could not find the following environment variables
+🛑 =========================================================
+\x1b[31m
+🛑 ${notFoundVars.join('\n🛑 ')}
+\x1b[0m
+🛑 Please request them from another member of the team.
+    `)
+    process.exit(1)
+  }
+})()
+
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const itemsRouter = require('./routes/items')
 const shopsRouter = require('./routes/shops')
-const addItemRouter = require('./routes/addItem')
+const accountRouter = require('./routes/account')
 
 const apiRouter = require('./routes/api')
 
@@ -63,12 +92,16 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.use(require('./middleware/getShop'))
+app.use(require('./middleware/shopCategories'))
+
 app.use('/', indexRouter)
+
 app.use('/users', usersRouter)
 app.use('/items', itemsRouter)
 app.use('/shops', shopsRouter)
 app.use('/birds', birdsRouter)
-app.use('/addItem', addItemRouter)
+app.use('/account', accountRouter)
 
 app.use('/api', apiRouter)
 

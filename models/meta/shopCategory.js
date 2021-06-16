@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const shopCategorySchema = new Schema({
   name: String,
-  description: String
-}, { timestamps: true })
+  count: Number
+}, { timestamps: false })
 
-module.exports = mongoose.model('ShopCategory', shopCategorySchema)
+module.exports = mongoose.model('ShopCategories', shopCategorySchema)

@@ -3,7 +3,7 @@
 <div class="body-container">
 <div class="form-container">
 {% include "flashes.njk" %}
-    <form action="/account" method="POST" enctype="multipart/form-data">
+    <form action="/account/settings" method="POST" enctype="multipart/form-data">
         <fieldset>
             <h1>Address</h1>
             <div class="input-and-label">
@@ -34,6 +34,19 @@
                 <textarea id="shopDescription" oninput="updateDescs()" name="shopDescription" rows="7" cols="50" maxlength="160" required="true">
                 {{- shop.description -}}
                 </textarea>
+            </div>
+            <div class="input-and-label">
+                <label for="shopCategories">Category (5 maximum)</label>
+                <select id="shopCategories" name="shopCategories" multiple="5">
+                    {% for category in shopCategories %}
+                    {% if category.shown %}
+                    {% set shown = "selected" %}
+                    {% else %}
+                    {% set shown = "" %}
+                    {% endif %}
+                    <option value="{{category.id}}" {{shown}}>{{category.name}}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="input-and-label">
                 <label for="image">Upload your shop image here</label>

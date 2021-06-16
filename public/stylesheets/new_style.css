@@ -213,6 +213,7 @@ footer>* {
 
 .shop-card {
   display: flex;
+  align-self: center;
   flex-direction: column;
   background-size: cover;
   background-color: var(--basketdrop-grey);
