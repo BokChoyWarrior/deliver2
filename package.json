@@ -9,6 +9,8 @@
     "test": "jasmine"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.26.0",
     "connect-flash": "^0.1.1",
@@ -27,15 +29,34 @@
     "nunjucks": "^3.2.3",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "postcode-validator": "^3.3.0"
+    "postcode-validator": "^3.3.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "eslint": "^7.27.0",
+    "eslint": "^7.28.0",
     "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.24.0",
     "jasmine": "^3.7.0",
     "passport-local": "^1.0.0"
-  }
+  },
+  "description": "Test delivery webapp",
+  "main": ".eslintrc.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BokChoyWarrior/deliver2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BokChoyWarrior/deliver2/issues"
+  },
+  "homepage": "https://github.com/BokChoyWarrior/deliver2#readme"
 }
