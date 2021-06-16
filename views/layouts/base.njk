@@ -10,9 +10,12 @@
     crossorigin="anonymous"></script>
     <script type="text/javascript" src="/javascripts/utils.js"></script>
 
-    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js" crossorigin></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer crossorigin></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" defer crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" defer crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js" defer crossorigin></script>
+    {# React app #}
+    <script src="/react_components/randomUser.js" defer type="text/jsx"></script>
     <!-- favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -20,7 +23,7 @@
     <link rel="manifest" href="/favicon/site.webmanifest">
 
     <link rel='stylesheet' href='/stylesheets/normalize.css'/>
-    <link rel='stylesheet' href='/stylesheets/new_style.css'/>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
     {% block stylesheets %}{% endblock %}
     {% block head %}{% endblock %}
     <title>{{title}}</title>
@@ -73,7 +76,6 @@
       </footer>
       {% endblock %}
       {% block javascript %}{% endblock %}
-      <script src="/react_components/randomUser.js" type="text/jsx"></script>
       {# <script src="/react_components/App.js"></script> #}
   </body>
 

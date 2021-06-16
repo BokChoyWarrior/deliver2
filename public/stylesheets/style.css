@@ -492,6 +492,7 @@ form input:focus, form textarea:focus {
 }
 
 /*
+  TODO
   media queries:
   once the vw below 1280, hide images,
   once below 720, hide basket
@@ -499,7 +500,7 @@ form input:focus, form textarea:focus {
 
 /* END SHOP PAGE */
 
-/* Toast */
+/* TOASTS */
 .toast{
   visibility: hidden;
   position: fixed;
@@ -549,3 +550,25 @@ form input:focus, form textarea:focus {
   from{top: 10rem; right: 5rem; opacity: 1;}
   to{top: 10rem; right: 0; opacity: 0;}
 }
+
+/* END TOAST */
+
+/* ITEMS */
+
+.shop-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.shop-item {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+}
+
+.shop-item-controls * {
+  display: inline;
+}
+.shop-item-details img {
+  max-width: 20%;
+}
+/* END ITEMS */

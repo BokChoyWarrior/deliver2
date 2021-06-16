@@ -2,102 +2,61 @@
 {% block body %}
 <div class="body-container">
     <div class="shop-container">
-        <div class="main-shop">
-            <main class="shop-header">
-                <div class="shop-description">
-                    <h2 class="shop-name">{{shop.name}}</h2>
-                    <hr>
-                    <p>Description</p>
-                    <hr>
-                    <p>details</p>
-                </div>
-                <img class="shop-image" src="{{shop.imagefile}}" alt="shop image">
-            </main>
-            <div class="items">
-                {% for item in items %}
-                <div class="shop-item">{{ item.name }}</div>
-                {% endfor %}
-                {# {% for item in items %}
-                    <div class="item-card">
-                        <h1>{{item.name}}</h1>
-                        <p>{{ convertPrice(item.price) }}</p>
-                        <div class="item-card-controls">
-                            {% set quantity = quantityInBasket(basket, item._id) %}
-                            <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1, '{{ shop._id }}')">
-                                <span class="material-icons">add</span></h1>
-                            {% if quantity %}
-                                <p id="item{{ item._id }}">{{ quantity }}</p>
-                                <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', -1, '{{ shop._id }}')" style="background-color: crimson;">
-                                    <span class="material-icons">remove</span></h1>
-                            {% endif %}
-                        </div>
+        <div class="container">
+            <div class="main-shop">
+                <main class="shop-header">
+                    <div class="shop-description">
+                        <h2 class="shop-name">{{shop.name}}</h2>
+                        <hr>
+                        <p>{{shop.description}}</p>
+                        <hr>
+                        <p>details</p>
                     </div>
                     <img class="shop-image" src="{{shop.imagefile}}" alt="shop image">
                 </main>
-                <div class="items">
-                    <div class="shop-item">Test item</div>
-                    <div class="shop-item"> Test item 2</div>
-                    <div id="random-user"></div>
-                    {# {% for item in items %}
-                        <div class="item-card">
-                            <h1>{{item.name}}</h1>
-                            <p>{{ convertPrice(item.price) }}</p>
-                            <div class="item-card-controls">
-                                {% set quantity = quantityInBasket(basket, item._id) %}
-                                <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', 1, '{{ shop._id }}')">
-                                    <span class="material-icons">add</span></h1>
-                                {% if quantity %}
-                                    <p id="item{{ item._id }}">{{ quantity }}</p>
-                                    <h1 onclick="add_or_remove_2basket(this, '{{ item._id }}', -1, '{{ shop._id }}')" style="background-color: crimson;">
-                                        <span class="material-icons">remove</span></h1>
-                                {% endif %}
-                            </div>
+                <div class="shop-items">
+                    <div class="shop-item">
+                        <div class="shop-item-details">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Coca-Cola_logo.svg" alt="">
+                            <div class="item-name">Coke</div>
                         </div>
-                    {% endfor %} #}
+                        <div class="shop-item-controls">
+                            <button class="button-action"><span class="material-icons">remove</span></button>
+                            <h1>(amnt)</h1>
+                            <button class="button-action"><span class="material-icons">add</span></button>
+                        </div>
+                    </div>
+                    <div class="shop-item">
+                        <div class="shop-item-details">
+                            <img src="https://www.seriouseats.com/thmb/ifm0CdyPbk1mpwR9QkosdU8JHAs=/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__images__2014__06__20140623-cheese101-hard-cheese-clothbound-cheddar-vicky-wasik-1-850ecd4c1982457698ba4ea0ab8b4c08.jpg" alt="">
+                            <div class="item-name">Cheese</div>
+                        </div>
+                        <div class="shop-item-controls">
+                            <button class="button-action"><span class="material-icons">remove</span></button>
+                            <h1>(amnt)</h1>
+                            <button class="button-action"><span class="material-icons">add</span></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="shop-basket">
-                <h1>Currently in Basket</h1>
+                <h1>Basket (react)</h1>
                 {% if basket %}
                     <ul>
-                        {% for thing in basket %}
-                            <li>{{ thing.item.name }} {{thing.quantity}}<li>
-                        {% endfor %}
+                    {% for thing in basket %}
+                        <li>{{ thing.item.name }}    
+                        <li>{{thing.quantity}}
+                    {% endfor %}
                     </ul>
                 {% endif %}
             </div>
         </div>
     </div>
 </div>
-    <script>
-
-        function add_or_remove_2basket(target, item_id, amount, shop_id) {
-            console.log(target, item_id, amount);
-            $.post("/users/add2basket", {
-                itemid: item_id,
-                amount: amount,
-                shopId: shop_id
-            }, function (data) {
-                if (data.success) {
-                    var quantity = Number($('#item' + item_id).text());
-                    if (quantity == 0) {
-                        //we now need to add on the remove button and quantity.
-                        //wish this was easier said then done ughhh.
-                        $(target).after('<h1 onclick="add_or_remove_2basket(this, ' + "'" + item_id + "'" + ', -1)" style="background-color: crimson;"><span class="material-icons">remove</span></h1>');
-                        $(target).after('<p id="item' + item_id + '">1</p>');
-                    }
-                    if (quantity == 1 && amount == -1) {
-                        //user has deleted item from their basket so lets remove the option to remove it anymore and the quantity.
-                        var removeButton = $(target).after();
-                        $(removeButton).remove();
-                        $('#item' + item_id).remove();
-                    }
-                    quantity += amount;
-                    $('#item' + item_id).text(quantity);
-                } else {}
-            });
-        }
-    </script>
+{% endblock %}
+{% block javascript %}
+<script>localStorage.setItem('shop_id', '{{shop._id}}')</script>
+<script defer src="/react_components/ShopItems.js" type="text/jsx"></script>
 {% endblock %}

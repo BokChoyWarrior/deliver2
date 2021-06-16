@@ -17,6 +17,7 @@ module.exports = {
   globals: {
     React: true,
     ReactDOM: true,
-    JSX: true
+    JSX: true,
+    axios: true
   }
 }
