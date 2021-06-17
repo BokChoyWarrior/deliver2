@@ -71,7 +71,6 @@ router.post('/register', async (req, res, next) => {
           })
           if (shopId) { user.shopId = shopId }
           user.save().then(data => {
-            console.log(data)
             // TODO: Redirect to email verification!
             res.redirect('/users/login')
           }).catch(err => console.log('Error while registering user:', err))
@@ -108,7 +107,6 @@ router.get('/basket', ensureAuthenticated, async (req, res, next) => {
   // this will give us all the information about each product that we need.
   const user = await User.findOne({ _id: req.user._id }).populate('basket.item')
   let totalPrice = 0
-  console.log(totalPrice, user.basket)
   user.basket.forEach(item => {
     totalPrice += (item.item.price * item.quantity)
   })
@@ -130,11 +128,9 @@ router.post('/add2basket', ensureAuthenticated, async (req, res, next) => {
     // We should also check that the shop actually has the item requested! (If the user doesn't already have in basket)
     // ^ ^ ^ ^
     const user = await User.findOne({ _id: userid })
-    console.log(user.baskets)
     const baskets = user.baskets
     let basketIndex = baskets.findIndex(x => x.shop === shopId)
     while (basketIndex === -1) {
-      console.log(basketIndex)
       baskets.push({
         shop: shopId,
         basket: []
@@ -144,7 +140,6 @@ router.post('/add2basket', ensureAuthenticated, async (req, res, next) => {
     }
 
     const basket = user.baskets[basketIndex].basket
-    console.log(basket)
     const itemIndex = basket.findIndex(x => x.item === itemid)
     // console.log(user.basket[itemIndex]);
     let item

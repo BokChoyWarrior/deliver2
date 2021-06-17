@@ -9,7 +9,6 @@ router.route('/')
 
 router.route('/baskets')
   .get(async (req, res) => {
-    console.log(req.user)
   })
 router.route('/baskets/:id')
   .get(async (req, res) => {

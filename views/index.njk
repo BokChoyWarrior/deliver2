@@ -14,34 +14,4 @@
         {% endfor %}
     </div>
 </div>
-    <script>
-
-        function add_or_remove_2basket(target, item_id, amount) {
-            console.log(target, item_id, amount);
-            $.post("/users/add2basket", {
-                itemid: item_id,
-                amount: amount
-            }, function (data) {
-                console.log(data);
-                if (data.success) {
-                    var quantity = Number($('#item' + item_id).text());
-                    if (quantity == 0) {
-                        //we now need to add on the remove button and quantity.
-                        //wish this was easier said then done ughhh.
-                        $(target).after('<h1 onclick="add_or_remove_2basket(this, ' + "'" + item_id + "'" + ', -1)" style="background-color: crimson;"><span class="material-icons">remove</span></h1>');
-                        $(target).after('<p id="item' + item_id + '">1</p>');
-                    }
-                    if (quantity == 1 && amount == -1) {
-                        //user has deleted item from their basket so lets remove the option to remove it anymore and the quantity.
-                        var removeButton = $(target).after();
-                        $(removeButton).remove();
-                        $('#item' + item_id).remove();
-                    }
-                    quantity += amount;
-                    $('#item' + item_id).text(quantity);
-                } else {}
-            });
-        }
-    </script>
-    
 {% endblock %}

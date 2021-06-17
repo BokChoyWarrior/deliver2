@@ -99,7 +99,6 @@ router.route('/settings', ensureAuthenticated)
             },
             function (_error, result) { shop.imagefile = result.url })
         }
-        console.log('saving shop!')
         shop.save()
           .then(successMsg = 'Successfully updated details')
           .catch(_err => flashes.push({ type: 'error', msg: 'Something went wrong while updating your shop. Please try again' }))
