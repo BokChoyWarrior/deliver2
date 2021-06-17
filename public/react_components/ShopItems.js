@@ -23,33 +23,30 @@ const Item = (props) => {
 
 const ShopItems = (props) => {
   const [items, setItems] = React.useState([])
-  const [basket, setBasket] = React.useState([])
+  const [basket, setBasket] = React.useState(null)
   const shopId = localStorage.getItem('shop_id')
-  async function handleClick() {
-    const res = axios.get(`/api/account/baskets/${shopId}`).then(res => setBasket(res.data))
-    setBasket(res)
-    const data = await axios.get(`/api/shops/${shopId}/items`)
-    setItems(data.data)
-
-  }
+    
   // Comment
   // only run after mounting
-  React.useEffect(() => {
-    handleClick()
+  React.useEffect(async () => {
+    const res = await axios.get(`/api/account/baskets/${shopId}`)
+    setBasket(res.data)
+    const data = await axios.get(`/api/shops/${shopId}/items`)
+    setItems(data.data)
   }, [])
 
   // only run after unmounting
-  React.useEffect(() => {
-    return () => {
-    }
-  }, [])
+  // React.useEffect(() => {
+  //   return () => {
+  //     console.log("basket updated!")
+  //   }
+  // }, [basket])
 
   return (
     items.map((item, _index) => {
-      // console.log("Basket::::", basket)
-      // const index = basket.findIndex(x => x.item === item._id)
-      // const quantity = (index >=0) ? basket[index].quantity : 0
-      const quantity = 0
+      var quantity = 0
+      const index = basket.findIndex(x => x.item._id === item._id)
+      quantity = (index >=0) ? basket[index].quantity : 0
       return (<Item key={item._id} item={item} basket={basket} shopId={shopId} quantity={quantity} />)
     }
     )
