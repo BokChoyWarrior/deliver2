@@ -558,6 +558,7 @@ form input:focus, form textarea:focus {
 .shop-items {
   display: flex;
   flex-direction: column;
+  padding: 0.6rem 0.6rem
 }
 
 .shop-item {
@@ -567,6 +568,9 @@ form input:focus, form textarea:focus {
 
 .shop-item-controls * {
   display: inline;
+}
+.shop-item-details {
+  
 }
 .shop-item-details img {
   max-width: 20%;
