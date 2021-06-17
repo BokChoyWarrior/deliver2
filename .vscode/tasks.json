@@ -14,7 +14,7 @@
 		},
 		{
 			"type": "shell",
-			"label": "React development - windows",
+			"label": "🛑 DO NOT USE 🛑 React development - windows",
 			"detail": "Leave this task running developing react components",
 			"command": "npx babel --watch ./react_src/components --out-dir ./public/react_components --presets react-app/prod",
 			"problemMatcher": []

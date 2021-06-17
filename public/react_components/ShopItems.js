@@ -1,7 +1,3 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import axios from 'axios'
-
 const ShopItems = (props) => {
   const [items, setItems] = React.useState([])
   const shopId = localStorage.getItem('shop_id')
@@ -38,7 +34,7 @@ const ShopItems = (props) => {
                     <button className="button-action"><span className="material-icons">add</span></button>
                 </div>
             </div>
-          )
+            )
           }
           )}
         </div>
