@@ -26,21 +26,13 @@ const ShopItems = (props) => {
   const [basket, setBasket] = React.useState(null)
   const shopId = localStorage.getItem('shop_id')
 
-  // Comment
   // only run after mounting
   React.useEffect(async () => {
-    const res = await axios.get(`/api/account/baskets/${shopId}`)
-    setBasket(res.data)
-    const data = await axios.get(`/api/shops/${shopId}/items`)
-    setItems(data.data)
+    const _basket = await axios.get(`/api/account/baskets/${shopId}`)
+    setBasket(_basket.data)
+    const _items = await axios.get(`/api/shops/${shopId}/items`)
+    setItems(_items.data)
   }, [])
-
-  // only run after unmounting
-  // React.useEffect(() => {
-  //   return () => {
-  //     console.log("basket updated!")
-  //   }
-  // }, [basket])
 
   return (
     items.map((item, _index) => {
@@ -48,8 +40,7 @@ const ShopItems = (props) => {
       const index = basket.findIndex(x => x.item._id === item._id)
       quantity = (index >= 0) ? basket[index].quantity : 0
       return (<Item key={item._id} item={item} basket={basket} shopId={shopId} quantity={quantity} />)
-    }
-    )
+    })
   )
 }
 

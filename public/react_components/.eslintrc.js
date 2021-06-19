@@ -17,6 +17,6 @@ module.exports = {
     'react'
   ],
   rules: {
-    "react/prop-types": 'ignore'
+    'react/prop-types': 0
   }
 }
