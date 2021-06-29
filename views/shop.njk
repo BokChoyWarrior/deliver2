@@ -2,7 +2,7 @@
 {% block body %}
 <div class="body-container">
     <div class="shop-container">
-        <div class="container">
+        {# <div class="container">
             <div class="main-shop">
                 <main class="shop-header">
                     <div class="shop-description">
@@ -52,11 +52,11 @@
                     </ul>
                 {% endif %}
             </div>
-        </div>
+        </div> #}
     </div>
 </div>
 {% endblock %}
 {% block javascript %}
 <script>localStorage.setItem('shop_id', '{{shop._id}}')</script>
-<script defer src="/react_components/ShopItems.js" type="text/babel"></script>
+<script defer src="/react_components/Shop.js" type="text/babel"></script>
 {% endblock %}
