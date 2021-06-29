@@ -22,7 +22,7 @@ router.route('/:id')
 // we insert "validateMongoId" as middleware
   .get(validateMongoId, async (req, res) => {
     const shopId = req.params.id
-    await Shops.findById(shopId, '_id name description', (_err, shop) => {
+    await Shops.findById(shopId, '_id name description imagefile', (_err, shop) => {
       if (shop) {
         res.json(shop)
       } else {
